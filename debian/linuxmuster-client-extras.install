@@ -1,0 +1,9 @@
+etc/leoclient/leoclient-italc.conf
+etc/leoclient/leoclient-watch-my-home.conf
+etc/leoclient/leoclient-printer-default.conf
+usr/bin/italc-raumanpassung.sh
+usr/bin/leoclient-watch-my-home
+usr/bin/desktop-icons-hinzu.sh
+usr/bin/standarddrucker-nach-raum.sh
+
+

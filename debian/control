@@ -1,0 +1,19 @@
+Source: linuxmuster-client-extras
+Section: admin
+Priority: optional
+Maintainer: Ruediger Beck <jeffbeck@web.de>
+Build-Depends: debhelper , perl-base, fakeroot
+Standards-Version: 3.5.2
+
+
+
+Package: linuxmuster-client-extras
+Architecture: all
+Suggests: 
+Pre-Depends: 
+Depends: libfilesys-df-perl, liblog-log4perl-perl, liblinux-inotify2-perl
+Description: alternativ software to start VirtualBox
+ leovirtstarter-client copies and caches VirtualBox snapshots and starts
+ them
+
+
