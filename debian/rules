@@ -39,7 +39,7 @@ build-stamp: configure-stamp
 clean:
 	dh_testdir
 	dh_testroot
-	#rm -f build-stamp configure-stamp
+	rm -f build-stamp configure-stamp
 
 	# Add here commands to clean up after the build process.
 	-$(MAKE) clean
@@ -53,11 +53,11 @@ install: build
 	dh_installdirs
 
 	# Add commands to install package into debian/linuxmuster-client-extras
-	$(MAKE) watch-my-home DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
-	$(MAKE) printer-default DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
-	$(MAKE) italc DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
-	$(MAKE) shutdown DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
-	$(MAKE) icon-script DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
+	$(MAKE) -B watch-my-home DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
+	$(MAKE) -B printer-default DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
+	$(MAKE) -B italc DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
+	$(MAKE) -B shutdown DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
+	$(MAKE) -B icon-script DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 
 # Build architecture-independent files here.
 binary-indep: build install

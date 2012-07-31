@@ -62,7 +62,7 @@ deb:
 
 
 clean:
-	rm -rf  debian/leoclient
+	rm -rf  debian/linusmuster-client-extras
 
 
 printer-default:
@@ -70,7 +70,7 @@ printer-default:
 	@install -d -m0755 -oroot -groot $(BIN)
 	@install -oroot -groot --mode=0755 printer/standarddrucker-nach-raum.sh $(BIN)
 	@install -d -m755 -oroot -groot $(CONF)
-	@install -oroot -groot --mode=0644 printer/leoclient-printer-default.conf $(CONF)
+	@install -oroot -groot --mode=0644 printer/printer-default.conf $(CONF)
 
 
 italc:
