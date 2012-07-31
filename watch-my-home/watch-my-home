@@ -23,8 +23,8 @@ use File::Path;
 use English;
 use Log::Log4perl qw(:easy);
 # configure logging
-my $log="/tmp/leoclient-watch-my-home.log";
-my $script="leoclient-watch-my-home";
+my $log="/tmp/watch-my-home.log";
+my $script="watch-my-home";
 my $label_feedback;
 # allow everybody to log int the logfile
 umask 000;
