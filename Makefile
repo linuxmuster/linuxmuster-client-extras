@@ -3,18 +3,8 @@
 # Created by Rüdiger Beck (jeffbeck-at-web.de)
 DESTDIR=
 
-# Virtualbox
-VBOXDIR=$(DESTDIR)/usr/bin
-VIRTCONF=$(DESTDIR)/etc/leovirtstarter
-LEOCLIENTCONF=$(DESTDIR)/etc/leoclient
-# Perl modules
-PERLMOD=$(DESTDIR)/usr/share/perl5/leoclient
+CONF=$(DESTDIR)/etc/linuxmuster-client/extras
 BIN=$(DESTDIR)/usr/bin
-SBIN=$(DESTDIR)/usr/sbin
-SHARE=$(DESTDIR)/usr/share/linuxmuster-client
-INIT=$(DESTDIR)/etc/init.d
-# where is the start script linked
-START=$(DESTDIR)/etc/rc2.d/S99leoclient
 
 help:
 	@echo ' '
@@ -24,20 +14,19 @@ help:
 	@echo '   make help'
 	@echo '      show this help'
 	@echo ' '
-	@echo ' '
-	@echo '   make leoclient-watch-my-home'
+	@echo '   make watch-my-home'
 	@echo '      install script to trigger alarm, when files/dirs are saved outside a dir'
 	@echo ' '
-	@echo '   make leoclient-printer-default'
+	@echo '   make printer-default'
 	@echo '      install set default printer script'
 	@echo ' '
-	@echo '   make leoclient-italc'
+	@echo '   make italc'
 	@echo '      install italc stuff'
 	@echo ' '
-	@echo '   make leoclient-shutdown'
+	@echo '   make shutdown'
 	@echo '      install shutdown script'
 	@echo ' '
-	@echo '   make leoclient-icon-script'
+	@echo '   make icon-script'
 	@echo '      install scripts to sync desktop icons'
 	@echo ' '
 	@echo '   make deb'
@@ -52,17 +41,13 @@ default:
 	@echo 'Doing Nothing'
 
 
-
-# tools
-############################################################
-
-leoclient-watch-my-home:
-	@echo '   * Installing the script leoclient-watch-my-home'
+watch-my-home:
+	@echo '   * Installing the script watch-my-home'
 	@install -d -m0755 -oroot -groot $(BIN)
-	@install -oroot -groot --mode=0755 watch-my-home/leoclient-watch-my-home $(VBOXDIR)
+	@install -oroot -groot --mode=0755 watch-my-home/watch-my-home $(BIN)
 	@echo '   * Installing the configuration file'
-	@install -d -m755 -oroot -groot $(LEOCLIENTCONF)
-	@install -oroot -groot --mode=0644 watch-my-home/leoclient-watch-my-home.conf  $(LEOCLIENTCONF)
+	@install -d -m755 -oroot -groot $(CONF)
+	@install -oroot -groot --mode=0644 watch-my-home/watch-my-home.conf $(CONF)
 
 
 # build a package
@@ -75,38 +60,35 @@ deb:
 	@echo 'Do not forget to tag this version in git'
 	@echo ''
 
+
 clean:
 	rm -rf  debian/leoclient
 
 
-
-
-leoclient-printer-default:
+printer-default:
 	@echo '   * Installing printer scripts'
 	@install -d -m0755 -oroot -groot $(BIN)
 	@install -oroot -groot --mode=0755 printer/standarddrucker-nach-raum.sh $(BIN)
-	@install -d -m755 -oroot -groot $(LEOCLIENTCONF)
-	@install -oroot -groot --mode=0644 printer/leoclient-printer-default.conf  $(LEOCLIENTCONF)
+	@install -d -m755 -oroot -groot $(CONF)
+	@install -oroot -groot --mode=0644 printer/leoclient-printer-default.conf $(CONF)
 
 
-leoclient-italc:
+italc:
 	@echo '   * Installing italc scripts'
 	@install -d -m0755 -oroot -groot $(BIN)
 	@install -oroot -groot --mode=0755 italc/italc-raumanpassung.sh $(BIN)
-	@install -d -m755 -oroot -groot $(LEOCLIENTCONF)
-	@install -oroot -groot --mode=0644 italc/leoclient-italc.conf  $(LEOCLIENTCONF)
+	@install -d -m755 -oroot -groot $(CONF)
+	@install -oroot -groot --mode=0644 italc/leoclient-italc.conf $(CONF)
 
 
-leoclient-shutdown:
+shutdown:
 # no config file
 	@echo '   * Installing shutdown script (without cronjob entry)'
-	@install -d -m0755 -oroot -groot $(VBOXDIR)
+	@install -d -m0755 -oroot -groot $(BIN)
 	@install -oroot -groot --mode=0755 shutdown/herunterfahren.sh $(BIN)
 
 
-
-
-leoclient-icon-script:
+icon-script:
 	@echo '   * Installing desktop icons'
 	@install -d -m0755 -oroot -groot $(BIN)
 	@install -oroot -groot --mode=0755 desktop-icons/desktop-icons-hinzu.sh $(BIN)
