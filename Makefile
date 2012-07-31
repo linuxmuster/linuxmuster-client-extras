@@ -78,7 +78,7 @@ italc:
 	@install -d -m0755 -oroot -groot $(BIN)
 	@install -oroot -groot --mode=0755 italc/italc-raumanpassung.sh $(BIN)
 	@install -d -m755 -oroot -groot $(CONF)
-	@install -oroot -groot --mode=0644 italc/leoclient-italc.conf $(CONF)
+	@install -oroot -groot --mode=0644 italc/italc.conf $(CONF)
 
 
 shutdown:

@@ -38,7 +38,7 @@ my $EUID_name=getpwuid($EUID);
 my ($GID_name)=getgrgid($GID);
 my ($EGID_name)=getgrgid($EGID);
 
-my $config_file = "/etc/leoclient/leoclient-watch-my-home.conf";
+my $config_file = "/etc/linuxmuster-client-extras/watch-my-home.conf";
 {package WatchConf ; do $config_file || die "ERROR: $config_file not found or readable\n"} 
 
 my $no_warning_abs=$home."/".$WatchConf::no_warning_dir;
@@ -245,7 +245,7 @@ sub show_message_dialog {
     print "Antwort: $response";
     $dialog->destroy; # tut nicht
     print "done\n";
-    system ("/usr/bin/leoclient-watch-my-home &");
+    system ("/usr/bin/watch-my-home &");
     exit;
 }
 
