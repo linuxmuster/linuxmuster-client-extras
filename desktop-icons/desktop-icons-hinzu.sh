@@ -14,12 +14,12 @@ then
  
  # Desktopeinträge von localadmin kopieren 
  # eventuell vorher Verzeichnis Desktop anlegen
- if [ -d `echo $HEIMAT/Arbeitsfläche` ]
+ if [ -d `echo $HEIMAT/Desktop` ]
  then
-  cp -a /usr/share/linuxmuster-client/Desktop/* $HEIMAT/Arbeitsfläche/
+  cp -a /usr/share/linuxmuster-client/Desktop/* $HEIMAT/Desktop/
  else
-  mkdir $HEIMAT/Arbeitsfläche
-  cp -a /usr/share/linuxmuster-client/Desktop/* $HEIMAT/Arbeitsfläche/
+  mkdir $HEIMAT/Desktop
+  cp -a /usr/share/linuxmuster-client/Desktop/* $HEIMAT/Desktop/
  fi
 
 fi
@@ -30,12 +30,12 @@ then
  
  # Desktopeinträge von localadmin kopieren 
  # eventuell vorher Verzeichnis Desktop anlegen
- if [ -d `echo $HEIMAT/Arbeitsfläche` ]
+ if [ -d `echo $HEIMAT/Desktop` ]
  then
-  cp -a /home/share/school/.Desktop/* $HEIMAT/Arbeitsfläche/
+  cp -a /home/share/school/.Desktop/* $HEIMAT/Desktop/
  else
-  mkdir $HEIMAT/Arbeitsfläche
-  cp -a /home/share/school/.Desktop/* $HEIMAT/Arbeitsfläche/
+  mkdir $HEIMAT/Desktop
+  cp -a /home/share/school/.Desktop/* $HEIMAT/Desktop/
  fi
 
 fi
@@ -46,13 +46,14 @@ then
  
  # Desktopeinträge von localadmin kopieren 
  # eventuell vorher Verzeichnis Desktop anlegen
- if [ -d `echo $HEIMAT/Arbeitsfläche` ]
+ if [ -d `echo $HEIMAT/Desktop` ]
  then
-  cp -a /home/share/teachers/.Desktop/* $HEIMAT/Arbeitsfläche/
+  cp -a /home/share/teachers/.Desktop/* $HEIMAT/Desktop/
  else
-  mkdir $HEIMAT/Arbeitsfläche
-  cp -a /home/share/teachers/.Desktop/* $HEIMAT/Arbeitsfläche/
+  mkdir $HEIMAT/Desktop
+  cp -a /home/share/teachers/.Desktop/* $HEIMAT/Desktop/
  fi
 
 fi
 
+exit 0
