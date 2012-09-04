@@ -9,25 +9,58 @@ use File::Basename;
 
 
 my $old_script_warning=0;
+my $config_dir="/etc/";
 
-
+# The following file: 
+# /etc/xdg/autostart/linuxmuster-client-extra.desktop
+# ... starts  linuxmuster-client-extras-setup when logging in (user permissions)
+# ??? add an option (--login)/name the script linuxmuster-client-extras-login
+# What is run is in directory /etc/linuxmuster-client-extras/login-enabled
+# In this dir are links (with a number, to ensure order of execution) to scripts in /usr/bin/... that are run 
+#
+# with linuxmuster-client-extras-setup you can add/remove/list, .... all these links
+# Check the following:
+#   - Show dead links
+#   - Show nondead links that are added manually by the admin
+#
+# ??? Is there something similar for logoff
+#
+#
+#
+#
 
 my $help=0;
 # just for testing
 #my @old_scripts=("/usr/bin/ahjdsahdask",
 #                ); 
 
-my @old_scripts=("/usr/bin/watch-my-home", 
-                 "/usr/bin/standarddrucker-nach-raum.sh", 
-                 "/usr/bin/italc-raumanpassung.sh", 
-                 "/usr/bin/herunterfahren.sh", 
-                 "/usr/bin/desktop-icons-hinzu.sh", 
-                 "/usr/bin/ausdruck-winxp-splitter", 
-                 "/usr/bin/ausdruck-winxp-spooler", 
-                 "/usr/bin/leoclient-admin", 
-               );
+my @old_scripts=(
+    "/usr/bin/watch-my-home", 
+    "/usr/bin/standarddrucker-nach-raum.sh", 
+    "/usr/bin/italc-raumanpassung.sh", 
+    "/usr/bin/herunterfahren.sh", 
+    "/usr/bin/desktop-icons-hinzu.sh", 
+    "/usr/bin/ausdruck-winxp-splitter", 
+    "/usr/bin/ausdruck-winxp-spooler", 
+    "/usr/bin/leoclient-admin", 
+   );
 
 my @old_script_warning_lines=("\nWARNING:\n The following files are replaced by the linuxmuster-client-extras package.\n You should delete them:\n");
+
+
+my %script_link_map = (
+    "/usr/bin/watch-my-home2", "/etc/linuxmuster-client-extras/login-enabled/010-watch-my-home", 
+#    "/usr/bin/standarddrucker-nach-raum.sh",  "/etc/sc2", 
+#    "/usr/bin/italc-raumanpassung.sh",  "/etc/sc3",
+#    "/usr/bin/herunterfahren.sh",  "/etc/sc4",
+#    "/usr/bin/desktop-icons-hinzu.sh",  "/etc/sc5",
+#    "/usr/bin/ausdruck-winxp-splitter",  "/etc/sc6",
+#    "/usr/bin/ausdruck-winxp-spooler",  "/etc/sc7",
+#    "/usr/bin/leoclient-admin",  "/etc/sc8",
+   );
+
+
+
 
 # Parsen der Optionen
 my $testopt=GetOptions(
@@ -50,20 +83,29 @@ Options
 
 
 # Checking for old scripts
-
 foreach my $file (@old_scripts) {
     if (-e $file){
         $old_script_warning=1;
         push  @old_script_warning_lines , "    $file\n";
     }
 }
-
 if ($old_script_warning==1){
     foreach my $line (@old_script_warning_lines) {
         print $line;
     }
     print "\n";
 }
+
+
+# Creating Links
+# make sure Directory exists
+
+while (my ($script,$linkname) = each %script_link_map){
+    print "Link ", $linkname , " will refer to ", $script, "\n";
+    system("rm $linkname");
+    symlink $script, $linkname;
+}
+
 
 
 
