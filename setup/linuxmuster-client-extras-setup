@@ -9,14 +9,16 @@ use File::Basename;
 
 
 my $old_script_warning=0;
-my $config_dir="/etc/";
+my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
 
 # The following file: 
 # /etc/xdg/autostart/linuxmuster-client-extra.desktop
-# ... starts  linuxmuster-client-extras-setup when logging in (user permissions)
-# ??? add an option (--login)/name the script linuxmuster-client-extras-login
+# --> nicht im Paket, sondern beim aufruf von linuxmuster-client-extras-setup 
+# kopieren aus /usr/share/Paket (Permissions setzen)
+# ... starts  linuxmuster-client-extras-login when logging in (with user permissions)
 # What is run is in directory /etc/linuxmuster-client-extras/login-enabled
-# In this dir are links (with a number, to ensure order of execution) to scripts in /usr/bin/... that are run 
+# In this dir are links (with a number, to ensure order of execution) to scripts 
+# in /usr/bin/... that are run 
 #
 # with linuxmuster-client-extras-setup you can add/remove/list, .... all these links
 # Check the following:
@@ -26,8 +28,28 @@ my $config_dir="/etc/";
 # ??? Is there something similar for logoff
 #
 #
+# Einschalten eines scripts:
+# linuxmuster-client-extras-setup --on /usr/bin/italc-raumanpassung.sh
+#     1)  schauen in der map, wie der Link heisst
+#     2) -x checken 
+#     3) link anlegen
+# wenn Link nicht in der Map: ERROR
+# option --order 010     (3stelliger wert erforderlich)
+#
+# Aus schalten eines scripts:
+# linuxmuster-client-extras-setup --off 010
+#     1) link entfernen
 #
 #
+# --info
+#
+# 1) Possible Scripts with explanation
+#
+# 2) Known Linked Scripts (Link Target UND linkname in map)
+# Zeigt  linkname -> script_pfad_absolute
+# 3) Unknown Linked Scripts (Please register them)
+# Zeigt  linkname -> script_pfad_absolute
+
 
 my $help=0;
 # just for testing
@@ -49,9 +71,9 @@ my @old_script_warning_lines=("\nWARNING:\n The following files are replaced by 
 
 
 my %script_link_map = (
-    "/usr/bin/watch-my-home2", "/etc/linuxmuster-client-extras/login-enabled/010-watch-my-home", 
-#    "/usr/bin/standarddrucker-nach-raum.sh",  "/etc/sc2", 
-#    "/usr/bin/italc-raumanpassung.sh",  "/etc/sc3",
+    "/usr/bin/watch-my-home", "/etc/linuxmuster-client-extras/login-enabled/010-watch-my-home", 
+    "/usr/bin/standarddrucker-nach-raum.sh",  "/etc/linuxmuster-client-extras/login-enabled/020-set-default-printer", 
+    "/usr/bin/italc-raumanpassung.sh",  "/etc/linuxmuster-client-extras/login-enabled/030-set-italc-rooms",
 #    "/usr/bin/herunterfahren.sh",  "/etc/sc4",
 #    "/usr/bin/desktop-icons-hinzu.sh",  "/etc/sc5",
 #    "/usr/bin/ausdruck-winxp-splitter",  "/etc/sc6",
@@ -100,9 +122,18 @@ if ($old_script_warning==1){
 # Creating Links
 # make sure Directory exists
 
+if (not -d $config_dir){
+    system("mkdir -p $config_dir");
+    # ????? set permissions
+}
+
 while (my ($script,$linkname) = each %script_link_map){
-    print "Link ", $linkname , " will refer to ", $script, "\n";
-    system("rm $linkname");
+    print "Creating Link:\n";
+    print "$linkname -> $script\n";
+    if (-l $linkname){
+        system("rm $linkname");
+    }
+
     symlink $script, $linkname;
 }
 

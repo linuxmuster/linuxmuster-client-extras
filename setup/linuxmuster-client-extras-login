@@ -1,0 +1,130 @@
+#!/usr/bin/perl -w
+# This Script (linuxmuster-client-extras-login) was created by Rüdiger Beck
+# It is released under the GPL Version 3
+# For Bugs send mail to (jeffbeck-at-web.de)
+
+use strict;
+use Getopt::Long;
+use File::Basename;
+use Log::Log4perl qw(:easy);
+use English;
+
+# configure logging
+my $log="/tmp/linuxmuster-client-extras-login.log";
+Log::Log4perl->easy_init({ 
+                level   => $INFO,
+                file    => ">>$log" } );    
+
+
+my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
+my $help=0;
+my $info=0;
+my @all_links=();
+
+my $home=$ENV{'HOME'};
+my $UID_name=getpwuid($UID);
+my $EUID_name=getpwuid($EUID);
+
+# Parsen der Optionen
+my $testopt=GetOptions(
+           "help|h" => \$help,
+           "info|i" => \$info,
+          );
+
+# Prüfen, ob Optionen erkannt wurden, sonst Abbruch
+&check_options($testopt);
+
+
+
+if ($help==1){
+   print('
+
+This script is run on user login. 
+It will start all linked scripts in the directory
+   ',$config_dir,'  
+in the order given by the numbers.
+
+For debugging see the logfile: ',$log,'
+
+Options
+  -h  / --help  
+   show this help
+  -i  / --info  
+   show scripts in running order
+');
+   print "\n";
+   exit;
+}
+
+
+if (not -d $config_dir){
+    print "\nERROR: Configuration directory\n",
+          "    $config_dir\n",
+          " does not exist!\n\n";
+    exit;
+}
+
+
+# Run/show the scripts
+opendir(CONFIG, $config_dir) or 
+     die "can't open dir config_dir: $!";
+while (defined(my $linkname = readdir(CONFIG))) {
+    my $abs_linkname=$config_dir."/".$linkname;
+    if (-l $abs_linkname){
+        # do something with "$linkname"
+        push @all_links, $linkname;
+    }
+}
+closedir(CONFIG);
+
+# sorting links
+@all_links = sort @all_links;
+
+
+
+INFO "############## START $0 ###############";
+INFO "\$HOME=$home";
+INFO "User ID:           $UID_name";
+INFO "Effective user ID: $EUID_name";
+INFO "I'm walking through the links";
+foreach my $linkname (@all_links){
+    my $abs_linkname=$config_dir."/".$linkname;
+    INFO "Processing Link: $abs_linkname";
+    my $link_target = readlink $abs_linkname;
+    INFO "   * Target: $link_target";
+    if ($info==1){
+        print "   $linkname\n";
+        INFO "   * $linkname would run $link_target";
+    } else {
+        # trying to run the script
+        if (not -x $link_target){
+            INFO "   * WARNING: Target $link_target nonexisting/not executable";
+        } else {
+            INFO "   * Running script $link_target";
+            INFO "   * stdout and stderr follow:";
+            system("$link_target >> $log 2>&1");
+            INFO "   * Done with  script $link_target";
+        }
+    }
+}
+INFO "############## $0 DONE ##############";
+
+
+############################################################
+# subs
+############################################################
+sub  check_options{
+   my ($parse_ergebnis) = @_;
+   if (not $parse_ergebnis==1){
+      my @list = split(/\//,$0);
+      my $scriptname = pop @list;
+      print "\nYou have made a mistake, when specifying options.\n"; 
+      print "See error message above. \n\n";
+      print "... $scriptname is terminating.\n\n";
+      exit;
+   } else {
+      #print "All options  were recognized.\n";
+   }
+
+}
+
