@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=linuxmuster-client-extras
+Exec=/usr/bin/linuxmuster-client-extras-setup
