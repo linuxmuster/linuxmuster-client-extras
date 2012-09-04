@@ -7,7 +7,27 @@ use strict;
 use Getopt::Long;
 use File::Basename;
 
+
+my $old_script_warning=0;
+
+
+
 my $help=0;
+# just for testing
+#my @old_scripts=("/usr/bin/ahjdsahdask",
+#                ); 
+
+my @old_scripts=("/usr/bin/watch-my-home", 
+                 "/usr/bin/standarddrucker-nach-raum.sh", 
+                 "/usr/bin/italc-raumanpassung.sh", 
+                 "/usr/bin/herunterfahren.sh", 
+                 "/usr/bin/desktop-icons-hinzu.sh", 
+                 "/usr/bin/ausdruck-winxp-splitter", 
+                 "/usr/bin/ausdruck-winxp-spooler", 
+                 "/usr/bin/leoclient-admin", 
+               );
+
+my @old_script_warning_lines=("\nWARNING:\n The following files are replaced by the linuxmuster-client-extras package.\n You should delete them:\n");
 
 # Parsen der Optionen
 my $testopt=GetOptions(
@@ -27,6 +47,24 @@ Options
    print "\n";
    exit;
 }
+
+
+# Checking for old scripts
+
+foreach my $file (@old_scripts) {
+    if (-e $file){
+        $old_script_warning=1;
+        push  @old_script_warning_lines , "    $file\n";
+    }
+}
+
+if ($old_script_warning==1){
+    foreach my $line (@old_script_warning_lines) {
+        print $line;
+    }
+    print "\n";
+}
+
 
 
 
