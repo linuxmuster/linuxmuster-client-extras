@@ -6,10 +6,17 @@
 use strict;
 use Getopt::Long;
 use File::Basename;
-
+use English;
 
 my $old_script_warning=0;
 my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
+my $UID_name=getpwuid($UID);
+my $EUID_name=getpwuid($EUID);
+
+if ($UID!=0 or $EUID!=0){
+    print "\nYou need to be root to run $0\n\n";
+    exit;
+}
 
 # The following file: 
 # /etc/xdg/autostart/linuxmuster-client-extra.desktop
@@ -36,11 +43,6 @@ my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
 # wenn Link nicht in der Map: ERROR
 # option --order 010     (3stelliger wert erforderlich)
 #
-# Aus schalten eines scripts:
-# linuxmuster-client-extras-setup --off 010
-#     1) link entfernen
-#
-#
 # --info
 #
 # 1) Possible Scripts with explanation
@@ -52,6 +54,10 @@ my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
 
 
 my $help=0;
+my $info=0;
+my $off="";
+my $on="";
+
 # just for testing
 #my @old_scripts=("/usr/bin/ahjdsahdask",
 #                ); 
@@ -87,6 +93,9 @@ my %script_link_map = (
 # Parsen der Optionen
 my $testopt=GetOptions(
            "help|h" => \$help,
+           "info|i" => \$info,
+           "off=s" => \$off,
+           "on=s" => \$on,
           );
 
 # Prüfen, ob Optionen erkannt wurden, sonst Abbruch
@@ -98,6 +107,13 @@ if ($help==1){
    print('
 Options
   -h  / --help
+  -i  / --info
+    List all links in the configuration directory
+  --off ',"$config_dir",'/123-link
+    Remove the link = Do not start this script on login.
+  --on /path/to/executable/script
+    Adds a link in ',"$config_dir",' to start this script on login.
+
 ');
    print "\n";
    exit;
@@ -127,15 +143,62 @@ if (not -d $config_dir){
     # ????? set permissions
 }
 
-while (my ($script,$linkname) = each %script_link_map){
-    print "Creating Link:\n";
-    print "$linkname -> $script\n";
-    if (-l $linkname){
-        system("rm $linkname");
+
+# --info
+if ($info==1){
+    system("ls -lGg --color $config_dir");
+    exit;
+}
+
+
+# --off
+if ($off ne ""){
+    # removing links
+    if (-l $off and $off=~m/^$config_dir/){
+        unlink $off;
+    } else {
+        print "\nDoing nothing!\n",
+              "   $off\n",
+              " is not a link in  \n",
+              "   $config_dir\n\n";
+    }
+}
+
+
+
+# --on
+if ($on ne ""){
+    # a link is correct -> bug ???
+    if (not -x $on){
+        print "\n$on is nonexisting/not executable";
+    }
+    if (exists $script_link_map{$on}){
+       # create the link
+	print "Creating Link:\n",
+              "   $script_link_map{$on}\n",
+              "to script:\n",
+              "   $on\n";
+	symlink $on, $script_link_map{$on};
+    } else {
+        print "Creating custom link\n";
+
+
     }
 
-    symlink $script, $linkname;
 }
+
+
+
+#create all links
+#while (my ($script,$linkname) = each %script_link_map){
+#    print "Creating Link:\n";
+#    print "$linkname -> $script\n";
+#    if (-l $linkname){
+#        system("rm $linkname");
+#    }
+#
+#    symlink $script, $linkname;
+#}
 
 
 
