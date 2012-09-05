@@ -10,8 +10,13 @@ use English;
 
 my $old_script_warning=0;
 my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
+if (not -d $config_dir){
+    system("mkdir -p $config_dir");
+    # ????? set permissions
+}
 my $UID_name=getpwuid($UID);
 my $EUID_name=getpwuid($EUID);
+my $scriptname="linuxmuster-client-extras-setup";
 
 if ($UID!=0 or $EUID!=0){
     print "\nYou need to be root to run $0\n\n";
@@ -22,26 +27,10 @@ if ($UID!=0 or $EUID!=0){
 # /etc/xdg/autostart/linuxmuster-client-extra.desktop
 # --> nicht im Paket, sondern beim aufruf von linuxmuster-client-extras-setup 
 # kopieren aus /usr/share/Paket (Permissions setzen)
+#
 # ... starts  linuxmuster-client-extras-login when logging in (with user permissions)
-# What is run is in directory /etc/linuxmuster-client-extras/login-enabled
-# In this dir are links (with a number, to ensure order of execution) to scripts 
-# in /usr/bin/... that are run 
-#
-# with linuxmuster-client-extras-setup you can add/remove/list, .... all these links
-# Check the following:
-#   - Show dead links
-#   - Show nondead links that are added manually by the admin
-#
 # ??? Is there something similar for logoff
 #
-#
-# Einschalten eines scripts:
-# linuxmuster-client-extras-setup --on /usr/bin/italc-raumanpassung.sh
-#     1)  schauen in der map, wie der Link heisst
-#     2) -x checken 
-#     3) link anlegen
-# wenn Link nicht in der Map: ERROR
-# option --order 010     (3stelliger wert erforderlich)
 #
 # --info
 #
@@ -53,10 +42,14 @@ if ($UID!=0 or $EUID!=0){
 # Zeigt  linkname -> script_pfad_absolute
 
 
+
 my $help=0;
 my $info=0;
 my $off="";
 my $on="";
+my $order="";
+
+
 
 # just for testing
 #my @old_scripts=("/usr/bin/ahjdsahdask",
@@ -96,6 +89,7 @@ my $testopt=GetOptions(
            "info|i" => \$info,
            "off=s" => \$off,
            "on=s" => \$on,
+           "order=s" => \$order,
           );
 
 # Prüfen, ob Optionen erkannt wurden, sonst Abbruch
@@ -104,16 +98,32 @@ my $testopt=GetOptions(
 
 
 if ($help==1){
-   print('
-Options
+   print("With $scriptname you can setup scripts to be run on user login on the linuxmuster Linux client.\n",
+'All linked scripts/programs in',"$config_dir",' are run in the order given by the 3-digit string at the 
+beginning of the linkname.
+
+For scripts known to ',"$scriptname",' the 3-digit string is looked up automatically. 
+For you own custom scripts, you must use the option --order to submit the 3-digit string.
+
+On user login the script /usr/bin/linuxmuster-client-extras-login is executed to run all the linked scripts.
+See the help there for debugging info.
+
+Options:
   -h  / --help
+
   -i  / --info
     List all links in the configuration directory
+
   --off ',"$config_dir",'/123-link
     Remove the link = Do not start this script on login.
-  --on /path/to/executable/script
+
+  --on /absolute/path/to/executable/script
     Adds a link in ',"$config_dir",' to start this script on login.
 
+  --order numberstring
+    When creating links to own scripts, you have to state, WHEN they will be executed.
+    The numberstring given as option must have 3 digits and is prefixed to the scriptname
+    to result in the linkname.
 ');
    print "\n";
    exit;
@@ -135,13 +145,8 @@ if ($old_script_warning==1){
 }
 
 
-# Creating Links
-# make sure Directory exists
 
-if (not -d $config_dir){
-    system("mkdir -p $config_dir");
-    # ????? set permissions
-}
+
 
 
 # --info
@@ -153,6 +158,7 @@ if ($info==1){
 
 # --off
 if ($off ne ""){
+    &check_abs_path($off);
     # removing links
     if (-l $off and $off=~m/^$config_dir/){
         unlink $off;
@@ -170,36 +176,24 @@ if ($off ne ""){
 if ($on ne ""){
     # a link is correct -> bug ???
     if (not -x $on){
-        print "\n$on is nonexisting/not executable";
+        print "\n$on is nonexisting/not executable\n\n";
+        exit;
     }
     if (exists $script_link_map{$on}){
-       # create the link
-	print "Creating Link:\n",
-              "   $script_link_map{$on}\n",
-              "to script:\n",
-              "   $on\n";
-	symlink $on, $script_link_map{$on};
+        &create_symlink($on,$script_link_map{$on});
+	#symlink $on, $script_link_map{$on};
     } else {
-        print "Creating custom link\n";
-
-
+        if ($order eq ""){
+	    print "\nPlease use option --order to confige WHEN your custom script will be run.\n\n";
+	} elsif ($order=~m/[0-9]/){
+            my $basename = basename($on);
+            my $linkname=$config_dir."/".$order."-".$basename;
+            &create_symlink($on,$linkname);
+        } else {
+            print "\nThe value of option --order has to consist of digits from 0 to 9.\n\n";
+        }
     }
-
 }
-
-
-
-#create all links
-#while (my ($script,$linkname) = each %script_link_map){
-#    print "Creating Link:\n";
-#    print "$linkname -> $script\n";
-#    if (-l $linkname){
-#        system("rm $linkname");
-#    }
-#
-#    symlink $script, $linkname;
-#}
-
 
 
 
@@ -207,6 +201,35 @@ if ($on ne ""){
 ############################################################
 # subs
 ############################################################
+
+sub check_abs_path {
+    # check if argument is an absolute path
+    my ($path) = @_;
+    if ($path=~m/^\//){
+        # path is absolute, continue
+    } else {
+        print "\nPlease use the absolute path to $path\n\n";
+        exit;
+    }
+
+}
+
+sub create_symlink {
+    my ($script,$linkname) = @_;
+    &check_abs_path($script);
+    print "Creating Link:\n",
+          "   $linkname\n",
+          "to script:\n",
+          "   $script\n";
+    if (-l $linkname){
+        system("rm $linkname");
+    }
+    symlink $script, $linkname;
+}
+
+
+
+
 sub  check_options{
    my ($parse_ergebnis) = @_;
    if (not $parse_ergebnis==1){
@@ -217,7 +240,7 @@ sub  check_options{
       print "... $scriptname is terminating.\n\n";
       exit;
    } else {
-      print "All options  were recognized.\n";
+      #print "All options  were recognized.\n";
    }
 
 }
