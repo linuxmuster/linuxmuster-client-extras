@@ -53,6 +53,7 @@ install: build
 	dh_installdirs
 
 	# Add commands to install package into debian/linuxmuster-client-extras
+	$(MAKE) -B setup DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B watch-my-home DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B printer-default DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B italc DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras

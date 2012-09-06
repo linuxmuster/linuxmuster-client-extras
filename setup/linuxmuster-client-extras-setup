@@ -9,11 +9,7 @@ use File::Basename;
 use English;
 
 my $old_script_warning=0;
-my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
-if (not -d $config_dir){
-    system("mkdir -p $config_dir");
-    # ????? set permissions
-}
+
 my $UID_name=getpwuid($UID);
 my $EUID_name=getpwuid($EUID);
 my $scriptname="linuxmuster-client-extras-setup";
@@ -23,25 +19,35 @@ if ($UID!=0 or $EUID!=0){
     exit;
 }
 
-# The following file: 
-# /etc/xdg/autostart/linuxmuster-client-extra.desktop
-# --> nicht im Paket, sondern beim aufruf von linuxmuster-client-extras-setup 
-# kopieren aus /usr/share/Paket (Permissions setzen)
-#
-# ... starts  linuxmuster-client-extras-login when logging in (with user permissions)
+# make sure config directory exists
+my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
+if (not -d $config_dir){
+    system("mkdir -p $config_dir");
+    # ????? set permissions
+}
+
+# /etc/xdg/autostart/linuxmuster-client-extra.desktop must exist to run 
+# /usr/bin/linuxmuster-client-extras-login that runs all scripts as user
+my $autostart_file_source="/usr/share/linuxmuster-client-extras/linuxmuster-client-extras.desktop";
+my $autostart_file_target="/etc/xdg/autostart/linuxmuster-client-extras.desktop";
+system("cp $autostart_file_source $autostart_file_target");
+system("chmod 0644 $autostart_file_target");
+
+
+# todo
 # ??? Is there something similar for logoff
 #
 #
 # --info
 #
-# 1) Possible Scripts with explanation
-#
-# 2) Known Linked Scripts (Link Target UND linkname in map)
-# Zeigt  linkname -> script_pfad_absolute
-# 3) Unknown Linked Scripts (Please register them)
-# Zeigt  linkname -> script_pfad_absolute
-
-
+# Scripts/Binaries run on user login:
+#  S | T | Linkname                  | Script/Binary
+#----+---+---------------------------+-------------------------------------
+#  E | P | 020-set-default-printer   | /usr/bin/standarddrucker-nach-raum.sh
+#  D | P | 030-set-italc-rooms       | /usr/bin/italc-raumanpassung.sh
+#  E | C | 035-lsof                  | /usr/bin/lsof
+# S = Status, E = Enabled, D = Disabled
+# T = Type, P = Script from a linuxmuster.net package, C = Custom Script
 
 my $help=0;
 my $info=0;
@@ -74,9 +80,9 @@ my %script_link_map = (
     "/usr/bin/standarddrucker-nach-raum.sh",  "/etc/linuxmuster-client-extras/login-enabled/020-set-default-printer", 
     "/usr/bin/italc-raumanpassung.sh",  "/etc/linuxmuster-client-extras/login-enabled/030-set-italc-rooms",
 #    "/usr/bin/herunterfahren.sh",  "/etc/sc4",
-#    "/usr/bin/desktop-icons-hinzu.sh",  "/etc/sc5",
-#    "/usr/bin/ausdruck-winxp-splitter",  "/etc/sc6",
-#    "/usr/bin/ausdruck-winxp-spooler",  "/etc/sc7",
+    "/usr/bin/desktop-icons-hinzu.sh",  "/etc/linuxmuster-client-extras/login-enabled/040-create-desktop-icons",
+    "/usr/bin/ausdruck-winxp-splitter",  "/etc/linuxmuster-client-extras/login-enabled/050-start-printer-splitter",
+    "/usr/bin/ausdruck-winxp-spooler",  "/etc/linuxmuster-client-extras/login-enabled/060-start-printer-spooler",
 #    "/usr/bin/leoclient-admin",  "/etc/sc8",
    );
 

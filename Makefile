@@ -5,6 +5,8 @@ DESTDIR=
 
 CONF=$(DESTDIR)/etc/linuxmuster-client/extras
 BIN=$(DESTDIR)/usr/bin
+SBIN=$(DESTDIR)/usr/sbin
+SHARE=$(DESTDIR)/usr/share/linuxmuster-client-extras
 
 help:
 	@echo ' '
@@ -13,6 +15,9 @@ help:
 	@echo ' '
 	@echo '   make help'
 	@echo '      show this help'
+	@echo ' '
+	@echo '   make setup'
+	@echo '      install script to setup end execute login scripts'
 	@echo ' '
 	@echo '   make watch-my-home'
 	@echo '      install script to trigger alarm, when files/dirs are saved outside a dir'
@@ -39,6 +44,16 @@ help:
 
 default: 
 	@echo 'Doing Nothing'
+
+
+setup:
+	@echo '   * Installing the setup and login scripts'
+	@install -d -m0755 -oroot -groot $(BIN)
+	@install -oroot -groot --mode=0755 setup/linuxmuster-client-extras-login $(BIN)
+	@install -d -m0755 -oroot -groot $(SBIN)
+	@install -oroot -groot --mode=0755 setup/linuxmuster-client-extras-setup $(SBIN)
+	@install -d -m0755 -oroot -groot $(SHARE)
+	@install -oroot -groot --mode=0755 setup/linuxmuster-client-extras.desktop $(SHARE)
 
 
 watch-my-home:
