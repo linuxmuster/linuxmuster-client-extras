@@ -76,14 +76,14 @@ my @old_script_warning_lines=("\nWARNING:\n The following files are replaced by 
 
 
 my %script_link_map = (
-    "/usr/bin/watch-my-home", "/etc/linuxmuster-client-extras/login-enabled/010-watch-my-home", 
-    "/usr/bin/standarddrucker-nach-raum.sh",  "/etc/linuxmuster-client-extras/login-enabled/020-set-default-printer", 
-    "/usr/bin/italc-raumanpassung.sh",  "/etc/linuxmuster-client-extras/login-enabled/030-set-italc-rooms",
-#    "/usr/bin/herunterfahren.sh",  "/etc/sc4",
-    "/usr/bin/desktop-icons-hinzu.sh",  "/etc/linuxmuster-client-extras/login-enabled/040-create-desktop-icons",
-    "/usr/bin/ausdruck-winxp-splitter",  "/etc/linuxmuster-client-extras/login-enabled/050-start-printer-splitter",
-    "/usr/bin/ausdruck-winxp-spooler",  "/etc/linuxmuster-client-extras/login-enabled/060-start-printer-spooler",
-#    "/usr/bin/leoclient-admin",  "/etc/sc8",
+    "/usr/bin/watch-my-home",                  "010-watch-my-home", 
+    "/usr/bin/standarddrucker-nach-raum.sh",   "020-set-default-printer", 
+    "/usr/bin/italc-raumanpassung.sh",         "030-set-italc-rooms",
+#    "/usr/bin/herunterfahren.sh",              "/etc/sc4",
+    "/usr/bin/desktop-icons-hinzu.sh",         "040-create-desktop-icons",
+    "/usr/bin/ausdruck-winxp-splitter",        "050-start-printer-splitter",
+    "/usr/bin/ausdruck-winxp-spooler",         "060-start-printer-spooler",
+#    "/usr/bin/leoclient-admin",                "/etc/sc8",
    );
 
 
@@ -186,8 +186,8 @@ if ($on ne ""){
         exit;
     }
     if (exists $script_link_map{$on}){
-        &create_symlink($on,$script_link_map{$on});
-	#symlink $on, $script_link_map{$on};
+        my $linkname=$config_dir."/".$script_link_map{$on};
+        &create_symlink($on,$linkname);
     } else {
         if ($order eq ""){
 	    print "\nPlease use option --order to confige WHEN your custom script will be run.\n\n";
