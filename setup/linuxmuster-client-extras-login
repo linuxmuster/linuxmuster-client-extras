@@ -9,21 +9,22 @@ use File::Basename;
 use Log::Log4perl qw(:easy);
 use English;
 
+my $home=$ENV{'HOME'};
+my $UID_name=getpwuid($UID);
+my $EUID_name=getpwuid($EUID);
+
 # configure logging
-my $log="/tmp/linuxmuster-client-extras-login.log";
+my $log="/tmp/linuxmuster-client-extras-login.log.".$UID_name;
 Log::Log4perl->easy_init({ 
                 level   => $INFO,
                 file    => ">>$log" } );    
 
 
-my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
+my $config_dir="/etc/linuxmuster-client/extras/login-enabled";
 my $help=0;
 my $info=0;
 my @all_links=();
 
-my $home=$ENV{'HOME'};
-my $UID_name=getpwuid($UID);
-my $EUID_name=getpwuid($EUID);
 
 # Parsen der Optionen
 my $testopt=GetOptions(

@@ -38,7 +38,7 @@ my $EUID_name=getpwuid($EUID);
 my ($GID_name)=getgrgid($GID);
 my ($EGID_name)=getgrgid($EGID);
 
-my $config_file = "/etc/linuxmuster-client-extras/watch-my-home.conf";
+my $config_file = "/etc/linuxmuster-client/extras/watch-my-home.conf";
 {package WatchConf ; do $config_file || die "ERROR: $config_file not found or readable\n"} 
 
 my $no_warning_abs=$home."/".$WatchConf::no_warning_dir;

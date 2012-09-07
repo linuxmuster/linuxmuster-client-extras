@@ -20,7 +20,7 @@ if ($UID!=0 or $EUID!=0){
 }
 
 # make sure config directory exists
-my $config_dir="/etc/linuxmuster-client-extras/login-enabled";
+my $config_dir="/etc/linuxmuster-client/extras/login-enabled";
 if (not -d $config_dir){
     system("mkdir -p $config_dir");
     # ????? set permissions
