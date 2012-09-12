@@ -44,7 +44,7 @@ system("chmod 0644 $autostart_file_target");
 #  S | T | Linkname                  | Script/Binary
 #----+---+---------------------------+-------------------------------------
 #  E | P | 020-set-default-printer   | /usr/bin/set-default-printer.sh
-#  D | P | 030-set-italc-rooms       | /usr/bin/italc-raumanpassung.sh
+#  D | P | 030-setup-italc-rooms     | /usr/bin/setup-italc-rooms
 #  E | C | 035-lsof                  | /usr/bin/lsof
 # S = Status, E = Enabled, D = Disabled
 # T = Type, P = Script from a linuxmuster.net package, C = Custom Script
@@ -90,7 +90,8 @@ my %script_link_map = (
     "/usr/bin/watch-my-home",                  "010-watch-my-home", 
 #old    "/usr/bin/standarddrucker-nach-raum.sh",   "020-set-default-printer", 
     "/usr/bin/set-default-printer",            "020-set-default-printer", 
-    "/usr/bin/italc-raumanpassung.sh",         "030-set-italc-rooms",
+#old    "/usr/bin/italc-raumanpassung.sh",         "030-set-italc-rooms",
+    "/usr/bin/setup-italc-rooms",         "030-setup-italc-rooms",
 #    "/usr/bin/herunterfahren.sh",              "/etc/sc4",
 #old    "/usr/bin/desktop-icons-hinzu.sh",         "040-create-desktop-icons",
     "/usr/bin/create-desktop-icons",           "040-create-desktop-icons",

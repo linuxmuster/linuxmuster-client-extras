@@ -56,7 +56,7 @@ install: build
 	$(MAKE) -B setup DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B watch-my-home DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B set-default-printer DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
-	$(MAKE) -B italc DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
+	$(MAKE) -B setup-italc-rooms DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B shutdown DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B icon-script DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 

@@ -25,7 +25,7 @@ help:
 	@echo '   make set-default-printer'
 	@echo '      install set default printer script'
 	@echo ' '
-	@echo '   make italc'
+	@echo '   make setup-italc-rooms'
 	@echo '      install italc stuff'
 	@echo ' '
 	@echo '   make shutdown'
@@ -88,12 +88,12 @@ set-default-printer:
 	@install -oroot -groot --mode=0644 printer/set-default-printer.conf $(CONF)
 
 
-italc:
+setup-italc-rooms:
 	@echo '   * Installing italc scripts'
 	@install -d -m0755 -oroot -groot $(BIN)
-	@install -oroot -groot --mode=0755 italc/italc-raumanpassung.sh $(BIN)
+	@install -oroot -groot --mode=0755 italc/setup-italc-rooms $(BIN)
 	@install -d -m755 -oroot -groot $(CONF)
-	@install -oroot -groot --mode=0644 italc/italc.conf $(CONF)
+	@install -oroot -groot --mode=0644 italc/setup-italc-rooms.conf $(CONF)
 
 
 shutdown:
