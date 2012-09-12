@@ -22,7 +22,7 @@ help:
 	@echo '   make watch-my-home'
 	@echo '      install script to trigger alarm, when files/dirs are saved outside a dir'
 	@echo ' '
-	@echo '   make printer-default'
+	@echo '   make set-default-printer'
 	@echo '      install set default printer script'
 	@echo ' '
 	@echo '   make italc'
@@ -80,12 +80,12 @@ clean:
 	rm -rf  debian/linusmuster-client-extras
 
 
-printer-default:
+set-default-printer:
 	@echo '   * Installing printer scripts'
 	@install -d -m0755 -oroot -groot $(BIN)
-	@install -oroot -groot --mode=0755 printer/standarddrucker-nach-raum.sh $(BIN)
+	@install -oroot -groot --mode=0755 printer/set-default-printer $(BIN)
 	@install -d -m755 -oroot -groot $(CONF)
-	@install -oroot -groot --mode=0644 printer/printer-default.conf $(CONF)
+	@install -oroot -groot --mode=0644 printer/set-default-printer.conf $(CONF)
 
 
 italc:
