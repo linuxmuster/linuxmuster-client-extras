@@ -178,7 +178,7 @@ if ($delete_old_stuff==1){
     foreach my $file (@delete_old_stuff) {
         if (-e $file){ 
             print "Deleting $file\n";
-            #system("rm $file");
+            system("rm $file");
         }
     }
     print "\nDeleting old stuff finished\n\n";
