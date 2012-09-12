@@ -1,4 +1,8 @@
 Todo
+- renaming/deleting herunterfahren.sh  
+
+- bei --info ausführliche Listung aller in den Paketen enthaltenen module
+  (Paketname angeben?)
 
 - dismount truecrypt-volumes on logoff
   tc volume is still mounted after logoff

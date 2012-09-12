@@ -51,6 +51,7 @@ system("chmod 0644 $autostart_file_target");
 
 my $help=0;
 my $info=0;
+my $delete_old_stuff=0;
 my $off="";
 my $on="";
 my $order="";
@@ -58,10 +59,10 @@ my $order="";
 
 
 # just for testing
-#my @old_scripts=("/usr/bin/ahjdsahdask",
-#                ); 
+#my @delete_old_stuff=("/usr/bin/ahjdsahdask",
+#                     ); 
 
-my @old_scripts=(
+my @delete_old_stuff=(
     "/usr/bin/watch-my-home", 
     "/etc/xdg/autostart/Standarddrucker-nach-Raum.desktop", 
     "/usr/bin/standarddrucker-nach-raum.sh", 
@@ -84,7 +85,6 @@ my @old_scripts=(
 my @old_script_warning_lines=(
       "\nWARNING:\n The following files are replaced by the linuxmuster-client-extras",
       " and leoclient package. You should delete them BEFORE installing above packages:\n");
-
 
 my %script_link_map = (
     "/usr/bin/watch-my-home",                  "010-watch-my-home", 
@@ -109,6 +109,7 @@ my %script_link_map = (
 my $testopt=GetOptions(
            "help|h" => \$help,
            "info|i" => \$info,
+           "delete-old-stuff" => \$delete_old_stuff,
            "off=s" => \$off,
            "on=s" => \$on,
            "order=s" => \$order,
@@ -146,6 +147,10 @@ Options:
     When creating links to own scripts, you have to state, WHEN they will be executed.
     The numberstring given as option must have 3 digits and is prefixed to the scriptname
     to result in the linkname.
+
+  --delete-old-stuff
+    Delete all old files from a manual install. Will be deprecated.
+
 ');
    print "\n";
    exit;
@@ -153,18 +158,33 @@ Options:
 
 
 # Checking for old scripts
-foreach my $file (@old_scripts) {
+foreach my $file (@delete_old_stuff) {
     if (-e $file){
         $old_script_warning=1;
         push  @old_script_warning_lines , "    $file\n";
     }
 }
+
+
 if ($old_script_warning==1){
     foreach my $line (@old_script_warning_lines) {
         print $line;
     }
     print "\n";
 }
+
+
+if ($delete_old_stuff==1){
+    foreach my $file (@delete_old_stuff) {
+        if (-e $file){ 
+            print "Deleting $file\n";
+            #system("rm $file");
+        }
+    }
+    print "\nDeleting old stuff finished\n\n";
+    exit;
+}
+
 
 
 
