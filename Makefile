@@ -31,7 +31,7 @@ help:
 	@echo '   make shutdown'
 	@echo '      install shutdown script'
 	@echo ' '
-	@echo '   make icon-script'
+	@echo '   make create-desktop-icons'
 	@echo '      install scripts to sync desktop icons'
 	@echo ' '
 	@echo '   make deb'
@@ -103,7 +103,7 @@ shutdown:
 	@install -oroot -groot --mode=0755 shutdown/herunterfahren.sh $(BIN)
 
 
-icon-script:
+create-desktop-icons:
 	@echo '   * Installing desktop icons'
 	@install -d -m0755 -oroot -groot $(BIN)
 	@install -oroot -groot --mode=0755 desktop-icons/create-desktop-icons $(BIN)
