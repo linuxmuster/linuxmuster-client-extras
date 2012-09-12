@@ -63,16 +63,27 @@ my $order="";
 
 my @old_scripts=(
     "/usr/bin/watch-my-home", 
+    "/etc/xdg/autostart/Standarddrucker-nach-Raum.desktop", 
     "/usr/bin/standarddrucker-nach-raum.sh", 
+    "/usr/bin/standarddrucker-nach-raum.sh~", 
+    "/etc/xdg/autostart/italcRaumanpassung.desktop", 
     "/usr/bin/italc-raumanpassung.sh", 
+    "/usr/bin/italc-raumanpassung.sh~", 
     "/usr/bin/herunterfahren.sh", 
+    "/etc/xdg/autostart/DesktopIconshinzu.desktop", 
     "/usr/bin/desktop-icons-hinzu.sh", 
+    "/usr/bin/desktop-icons-hinzu-88591.sh", 
+    "/usr/bin/desktop-icons-hinzu-Arbeitsfl.sh", 
+    "/etc/xdg/autostart/VirtualBoxConfCopy.desktop", 
+    "/usr/bin/virtualbox-vm-conf-kopieren.sh", 
     "/usr/bin/ausdruck-winxp-splitter", 
     "/usr/bin/ausdruck-winxp-spooler", 
     "/usr/bin/leoclient-admin", 
    );
 
-my @old_script_warning_lines=("\nWARNING:\n The following files are replaced by the linuxmuster-client-extras package.\n You should delete them:\n");
+my @old_script_warning_lines=(
+      "\nWARNING:\n The following files are replaced by the linuxmuster-client-extras",
+      " and leoclient package. You should delete them BEFORE installing above packages:\n");
 
 
 my %script_link_map = (
@@ -80,9 +91,12 @@ my %script_link_map = (
     "/usr/bin/standarddrucker-nach-raum.sh",   "020-set-default-printer", 
     "/usr/bin/italc-raumanpassung.sh",         "030-set-italc-rooms",
 #    "/usr/bin/herunterfahren.sh",              "/etc/sc4",
-    "/usr/bin/desktop-icons-hinzu.sh",         "040-create-desktop-icons",
-    "/usr/bin/ausdruck-winxp-splitter",        "050-start-printer-splitter",
-    "/usr/bin/ausdruck-winxp-spooler",         "060-start-printer-spooler",
+#old    "/usr/bin/desktop-icons-hinzu.sh",         "040-create-desktop-icons",
+    "/usr/bin/create-desktop-icons",         "040-create-desktop-icons",
+#old    "/usr/bin/ausdruck-winxp-splitter",        "050-vm-printer-splitter",
+#old    "/usr/bin/ausdruck-winxp-spooler",         "060-vm-printer-spooler",
+    "/usr/bin/run-vm-printer-splitter",        "050-run-vm-printer-splitter",
+    "/usr/bin/run-vm-printer-spooler",         "060-run-vm-printer-spooler",
 #    "/usr/bin/leoclient-admin",                "/etc/sc8",
    );
 

@@ -106,5 +106,5 @@ shutdown:
 icon-script:
 	@echo '   * Installing desktop icons'
 	@install -d -m0755 -oroot -groot $(BIN)
-	@install -oroot -groot --mode=0755 desktop-icons/desktop-icons-hinzu.sh $(BIN)
+	@install -oroot -groot --mode=0755 desktop-icons/create-desktop-icons $(BIN)
 
