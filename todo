@@ -1,1 +1,5 @@
 Todo
+
+- dismount truecrypt-volumes on logoff
+  tc volume is still mounted after logoff
+  mounting tc volume over smb avoids proper shutdown 
