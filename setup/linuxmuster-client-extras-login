@@ -14,7 +14,7 @@ my $UID_name=getpwuid($UID);
 my $EUID_name=getpwuid($EUID);
 
 # configure logging
-my $log="/tmp/linuxmuster-client-extras-login.log.".$UID_name;
+my $log="/tmp/linuxmuster-client-extras-login.log-".$UID_name;
 Log::Log4perl->easy_init({ 
                 level   => $INFO,
                 file    => ">>$log" } );    

@@ -1,3 +1,15 @@
+linuxmuster-client-extras (0.0.3-1) precise; urgency=low
+
+  * New upstream, example package
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 14 Sep 2012 13:32:46 +0200
+
+linuxmuster-client-extras (0.0.2-1) precise; urgency=low
+
+  * New upstream relese and packaging
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 14 Sep 2012 11:37:44 +0200
+
 linuxmuster-client-extras (0.0.1-1) lenny; urgency=low
 
   * First Revision

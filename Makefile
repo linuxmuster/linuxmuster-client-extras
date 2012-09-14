@@ -53,7 +53,9 @@ setup:
 	@install -d -m0755 -oroot -groot $(SBIN)
 	@install -oroot -groot --mode=0755 setup/linuxmuster-client-extras-setup $(SBIN)
 	@install -d -m0755 -oroot -groot $(SHARE)
+	@install -d -m0755 -oroot -groot $(SHARE)/examples
 	@install -oroot -groot --mode=0755 setup/linuxmuster-client-extras.desktop $(SHARE)
+	@install -oroot -groot --mode=0755 setup/examples/bszleo-setup $(SHARE)/examples
 
 
 watch-my-home:

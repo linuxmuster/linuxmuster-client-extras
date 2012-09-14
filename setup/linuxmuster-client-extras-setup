@@ -63,14 +63,14 @@ my $order="";
 #                     ); 
 
 my @delete_old_stuff=(
-    "/usr/bin/watch-my-home", 
+#    "/usr/bin/watch-my-home", 
     "/etc/xdg/autostart/Standarddrucker-nach-Raum.desktop", 
     "/usr/bin/standarddrucker-nach-raum.sh", 
     "/usr/bin/standarddrucker-nach-raum.sh~", 
     "/etc/xdg/autostart/italcRaumanpassung.desktop", 
     "/usr/bin/italc-raumanpassung.sh", 
     "/usr/bin/italc-raumanpassung.sh~", 
-    "/usr/bin/herunterfahren.sh", 
+#    "/usr/bin/herunterfahren.sh", 
     "/etc/xdg/autostart/DesktopIconshinzu.desktop", 
     "/usr/bin/desktop-icons-hinzu.sh", 
     "/usr/bin/desktop-icons-hinzu-88591.sh", 
