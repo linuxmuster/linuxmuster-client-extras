@@ -1,3 +1,9 @@
+linuxmuster-client-extras (0.0.4-1) precise; urgency=low
+
+  * New fixes
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 14 Sep 2012 15:40:35 +0200
+
 linuxmuster-client-extras (0.0.3-1) precise; urgency=low
 
   * New upstream, example package
