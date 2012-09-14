@@ -95,10 +95,11 @@ my %script_link_map = (
 #    "/usr/bin/herunterfahren.sh",              "/etc/sc4",
 #old    "/usr/bin/desktop-icons-hinzu.sh",         "040-create-desktop-icons",
     "/usr/bin/create-desktop-icons",           "040-create-desktop-icons",
+    "/usr/bin/setup-virtualbox",               "050-setup-virtualbox",
 #old    "/usr/bin/ausdruck-winxp-splitter",        "050-vm-printer-splitter",
 #old    "/usr/bin/ausdruck-winxp-spooler",         "060-vm-printer-spooler",
-    "/usr/bin/run-vm-printer-splitter",        "050-run-vm-printer-splitter",
-    "/usr/bin/run-vm-printer-spooler",         "060-run-vm-printer-spooler",
+    "/usr/bin/run-vm-printer-splitter",        "060-run-vm-printer-splitter",
+    "/usr/bin/run-vm-printer-spooler",         "070-run-vm-printer-spooler",
 #    "/usr/bin/leoclient-admin",                "/etc/sc8",
    );
 
