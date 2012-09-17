@@ -103,7 +103,10 @@ foreach my $linkname (@all_links){
         } else {
             INFO "   * Running script $link_target";
             INFO "   * stdout and stderr follow:";
-            system("$link_target >> $log 2>&1");
+            # 
+            #system("$link_target >> $log 2>&1");
+            # start in background
+            system("$link_target &");
             INFO "   * Done with  script $link_target";
         }
     }

@@ -1,3 +1,15 @@
+linuxmuster-client-extras (0.0.6-1) precise; urgency=low
+
+  * Start login scripts in Background, so that they work 
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Mon, 17 Sep 2012 14:03:50 +0200
+
+linuxmuster-client-extras (0.0.5-1) precise; urgency=low
+
+  * New order in login scripts
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Mon, 17 Sep 2012 13:40:54 +0200
+
 linuxmuster-client-extras (0.0.4-1) precise; urgency=low
 
   * New fixes

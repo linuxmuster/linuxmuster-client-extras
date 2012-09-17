@@ -87,7 +87,7 @@ my @old_script_warning_lines=(
       " and leoclient package. You should delete them BEFORE installing above packages:\n");
 
 my %script_link_map = (
-    "/usr/bin/watch-my-home",                  "010-watch-my-home", 
+    "/usr/bin/setup-virtualbox",               "010-setup-virtualbox",
 #old    "/usr/bin/standarddrucker-nach-raum.sh",   "020-set-default-printer", 
     "/usr/bin/set-default-printer",            "020-set-default-printer", 
 #old    "/usr/bin/italc-raumanpassung.sh",         "030-set-italc-rooms",
@@ -95,11 +95,11 @@ my %script_link_map = (
 #    "/usr/bin/herunterfahren.sh",              "/etc/sc4",
 #old    "/usr/bin/desktop-icons-hinzu.sh",         "040-create-desktop-icons",
     "/usr/bin/create-desktop-icons",           "040-create-desktop-icons",
-    "/usr/bin/setup-virtualbox",               "050-setup-virtualbox",
 #old    "/usr/bin/ausdruck-winxp-splitter",        "050-vm-printer-splitter",
 #old    "/usr/bin/ausdruck-winxp-spooler",         "060-vm-printer-spooler",
     "/usr/bin/run-vm-printer-splitter",        "060-run-vm-printer-splitter",
     "/usr/bin/run-vm-printer-spooler",         "070-run-vm-printer-spooler",
+    "/usr/bin/watch-my-home",                  "080-watch-my-home", 
 #    "/usr/bin/leoclient-admin",                "/etc/sc8",
    );
 
