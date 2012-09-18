@@ -1,4 +1,4 @@
-linuxmuster-client-extras (0.0.6-1) precise; urgency=low
+linuxmuster-client-extras (0.0.6-1) linuxmuster-client-testing; urgency=low
 
   * Start login scripts in Background, so that they work 
 
