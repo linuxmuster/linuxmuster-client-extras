@@ -1,3 +1,9 @@
+linuxmuster-client-extras (0.0.8-1) linuxmuster-client-testing; urgency=low
+
+  * Minimal changes
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 21 Sep 2012 17:45:02 +0200
+
 linuxmuster-client-extras (0.0.7-1) linuxmuster-client-testing; urgency=low
 
   * .desktop added again
