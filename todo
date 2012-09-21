@@ -7,3 +7,14 @@ Todo
 - dismount truecrypt-volumes on logoff
   tc volume is still mounted after logoff
   mounting tc volume over smb avoids proper shutdown 
+
+
+- replace scripts in 
+  /etc/linuxmuster-client/post-umount.d/
+  post-mount.d/
+  pre-umount.d/
+
+  Test if links are possible there,
+    if yes, use linuxmuster-client-extras-setup to create/manage these links
+      - link wird ausgefüht, bei touch /tmp/datei ist der Besitzer root.root
+      - als script ist der Besitzer auch root.root
