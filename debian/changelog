@@ -1,3 +1,9 @@
+linuxmuster-client-extras (0.0.7-1) linuxmuster-client-testing; urgency=low
+
+  * .desktop added again
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 21 Sep 2012 13:41:07 +0200
+
 linuxmuster-client-extras (0.0.6-1) linuxmuster-client-testing; urgency=low
 
   * Start login scripts in Background, so that they work 
