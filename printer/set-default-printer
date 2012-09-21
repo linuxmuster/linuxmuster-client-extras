@@ -50,3 +50,5 @@ fi
 #echo $STANDARDDRUCKER
 lpadmin -d $STANDARDDRUCKER
 lpoptions -d $STANDARDDRUCKER
+
+exit 0

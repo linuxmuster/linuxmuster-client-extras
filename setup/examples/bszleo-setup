@@ -1,13 +1,13 @@
 #!/bin/sh
 
 # switch on 
-/usr/sbin/linuxmuster-client-extras-setup --on /usr/bin/watch-my-home
 /usr/sbin/linuxmuster-client-extras-setup --on /usr/bin/set-default-printer
 /usr/sbin/linuxmuster-client-extras-setup --on /usr/bin/setup-italc-rooms
 /usr/sbin/linuxmuster-client-extras-setup --on /usr/bin/create-desktop-icons
 /usr/sbin/linuxmuster-client-extras-setup --on /usr/bin/setup-virtualbox
 /usr/sbin/linuxmuster-client-extras-setup --on /usr/bin/run-vm-printer-splitter
 /usr/sbin/linuxmuster-client-extras-setup --on /usr/bin/run-vm-printer-spooler
+#/usr/sbin/linuxmuster-client-extras-setup --on /usr/bin/watch-my-home
 
 
 # show configuration
