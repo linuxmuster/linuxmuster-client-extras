@@ -123,43 +123,49 @@ sub watcher {
                 # Do something with the file
                 INFO "File created:     $abs_path ($home_path)\n";
   	        &show_message_dialog(undef,
-                   "error",
-                   "Sie haben eine Datei ausserhalb von $WatchConf::no_warning_dir gespeichert.\n\n".
-                   "Bitte beachten Sie, dass diese Datei nach dem Abmelden gelöscht wird!\n\n".
-                   "Wenn Sie diese Datei auf dem Server dauerhaft abspeichern wollen, ".
+                   "warning",
+                   "Sie haben die Datei <b>$home_path</b> ausserhalb von $WatchConf::no_warning_dir gespeichert.\n\n".
+                   "Die Datei <b>$home_path</b> wird auf dem Rechner an dem Sie sitzen gespeichert und kann z.B. durch".
+                   " synchronisiertes Starten von anderen gelöscht werden!\n\n".
+                   "Wenn Sie die Datei <b>$home_path</b> dauerhaft auf dem Server abspeichern wollen, ".
                    "müssen Sie sie in $WatchConf::no_warning_dir speichern.\n",
-                   'ok');
+                   'ok',
+                   $home_path);
             } elsif (-l $abs_path){
               # Do something with the link
                 INFO "Dir created:     $abs_path ($home_path)\n";
   	        &show_message_dialog(undef,
-                   "error",
-                   "Sie haben einen Link ausserhalb von $WatchConf::no_warning_dir angelegt.\n\n".
-                   "Bitte beachten Sie, dass dieser Link nach dem Abmelden gelöscht wird!\n\n".
-                   "Wenn Sie den Link auf dem Server dauerhaft abspeichern wollen, ".
+                   "warning",
+                   "Sie haben den Link <b>$home_path</b> ausserhalb von $WatchConf::no_warning_dir angelegt.\n\n".
+                   "Der Link <b>$home_path</b> wird auf dem Rechner an dem Sie sitzen gespeichert und kann z.B. durch".
+                   " synchronisiertes Starten von anderen gelöscht werden!\n\n".
+                   "Wenn Sie den Link <b>$home_path</b> dauerhaft  auf dem Server abspeichern wollen, ".
                    "müssen Sie ihn in $WatchConf::no_warning_dir anlegen.\n",
-                   'ok');
+                   'ok',
+                   $home_path);
             } elsif (-d $abs_path){
               # Do something with the dir
                 INFO "Dir created:     $abs_path ($home_path)\n";
   	        &show_message_dialog(undef,
-                   "error",
-                   "Sie haben einen Ordner ausserhalb von $WatchConf::no_warning_dir angelegt.\n\n".
-                   "Bitte beachten Sie, dass dieser Ordner mit seinem Inhalt nach dem Abmelden gelöscht wird!\n\n".
-                   "Wenn Sie den Ordner und seinen Inhalt auf dem Server dauerhaft abspeichern wollen, ".
+                   "warning",
+                   "Sie haben den Ordner <b>$home_path</b> ausserhalb von $WatchConf::no_warning_dir angelegt.\n\n".
+                   "Der Ordner <b>$home_path</b> wird auf dem Rechner an dem Sie sitzen gespeichert und kann z.B. durch".
+                   " synchronisiertes Starten von anderen gelöscht werden!\n\n".
+                   "Wenn Sie den Ordner <b>$home_path</b> und seinen Inhalt dauerhaft auf dem Server abspeichern wollen, ".
                    "müssen Sie ihn in $WatchConf::no_warning_dir anlegen.\n",
-                   'ok');
+                   'ok',
+                   $home_path);
             } else{
               # Do something with the non-dir, non-file, non-link
                 INFO "Something created:     $abs_path ($home_path)\n";
   	        &show_message_dialog(undef,
-                   "error",
-                   "Sie haben etwas ausserhalb von $WatchConf::no_warning_dir angelegt.\n\n".
-                   "Bitte beachten Sie, dass es dort nach dem Abmelden gelöscht wird!\n\n".
+                   "warning",
+                   "Sie haben <b>$home_path</b> ausserhalb von $WatchConf::no_warning_dir angelegt.\n\n".
+                   "Bitte beachten Sie, dass <b>$home_path</b> dort nach dem Abmelden gelöscht wird!\n\n".
                    "Dauerhaft zu speichernde Dinge müssen nach $WatchConf::no_warning_dir gespeichert werden.\n",
-                   'ok');
-  
-            }
+                   'ok',
+                   $home_path);
+              }
         }
     }
 }
@@ -216,7 +222,7 @@ sub get_new_home{
 }
 
 
-sub show_message_dialog {
+sub show_message_dialog_old {
     #THIS IS THE MAIN FEATURE OF THE APP:
     #you tell it what to display, and how to display it
     #$parent is the parent window, or "undef"
@@ -249,5 +255,13 @@ sub show_message_dialog {
     print "done\n";
     system ("/usr/bin/watch-my-home &");
     exit;
+}
+
+
+
+sub show_message_dialog {
+    my ($undef,$type,$text,$button_type,$file) = @_;
+    system("/usr/bin/zenity --$type --text='$text'");
+    #exit;
 }
 
