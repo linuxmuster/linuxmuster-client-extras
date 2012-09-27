@@ -11,7 +11,7 @@ Package: linuxmuster-client-extras
 Architecture: all
 Suggests: 
 Pre-Depends: 
-Depends: linuxmuster-client-profile, libfilesys-df-perl, liblog-log4perl-perl, liblinux-inotify2-perl zenity
+Depends: linuxmuster-client-profile, libfilesys-df-perl, liblog-log4perl-perl, liblinux-inotify2-perl, zenity
 Description: alternativ software to start VirtualBox
  leovirtstarter-client copies and caches VirtualBox snapshots and starts
  them
