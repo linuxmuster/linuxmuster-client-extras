@@ -1,3 +1,9 @@
+linuxmuster-client-extras (0.1.2-1) precise-testing; urgency=low
+
+  * New upstream
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 28 Sep 2012 13:10:04 +0200
+
 linuxmuster-client-extras (0.1.1-1) precise-testing; urgency=low
 
   * Upstream fix: Message with links is ok
