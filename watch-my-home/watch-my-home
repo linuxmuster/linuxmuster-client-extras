@@ -119,6 +119,18 @@ sub watcher {
             if ( $home_path=~/^\..*/ ){
                 # do nothin with dotfiles
                 print "$abs_path is a dotfile\n";
+            } elsif (-l $abs_path){
+              # Do something with the link
+                INFO "Link created:     $abs_path ($home_path)\n";
+  	        &show_message_dialog(undef,
+                   "warning",
+                   "Sie haben den Link <b>$home_path</b> ausserhalb von $WatchConf::no_warning_dir angelegt.\n\n".
+                   "Der Link <b>$home_path</b> wird auf dem Rechner an dem Sie sitzen gespeichert und kann z.B. durch".
+                   " synchronisiertes Starten von anderen gelöscht werden!\n\n".
+                   "Wenn Sie den Link <b>$home_path</b> dauerhaft  auf dem Server abspeichern wollen, ".
+                   "müssen Sie ihn in $WatchConf::no_warning_dir anlegen.\n",
+                   'ok',
+                   $home_path);
             } elsif (-f $abs_path){
                 # Do something with the file
                 INFO "File created:     $abs_path ($home_path)\n";
@@ -129,18 +141,6 @@ sub watcher {
                    " synchronisiertes Starten von anderen gelöscht werden!\n\n".
                    "Wenn Sie die Datei <b>$home_path</b> dauerhaft auf dem Server abspeichern wollen, ".
                    "müssen Sie sie in $WatchConf::no_warning_dir speichern.\n",
-                   'ok',
-                   $home_path);
-            } elsif (-l $abs_path){
-              # Do something with the link
-                INFO "Dir created:     $abs_path ($home_path)\n";
-  	        &show_message_dialog(undef,
-                   "warning",
-                   "Sie haben den Link <b>$home_path</b> ausserhalb von $WatchConf::no_warning_dir angelegt.\n\n".
-                   "Der Link <b>$home_path</b> wird auf dem Rechner an dem Sie sitzen gespeichert und kann z.B. durch".
-                   " synchronisiertes Starten von anderen gelöscht werden!\n\n".
-                   "Wenn Sie den Link <b>$home_path</b> dauerhaft  auf dem Server abspeichern wollen, ".
-                   "müssen Sie ihn in $WatchConf::no_warning_dir anlegen.\n",
                    'ok',
                    $home_path);
             } elsif (-d $abs_path){

@@ -57,7 +57,7 @@ install: build
 	$(MAKE) -B watch-my-home DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B set-default-printer DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B setup-italc-rooms DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
-	$(MAKE) -B shutdown DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
+	#$(MAKE) -B shutdown DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 	$(MAKE) -B create-desktop-icons DESTDIR=$(CURDIR)/debian/linuxmuster-client-extras
 
 # Build architecture-independent files here.
