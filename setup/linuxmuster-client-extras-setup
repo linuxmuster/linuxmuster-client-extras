@@ -19,12 +19,7 @@ if ($UID!=0 or $EUID!=0){
     exit;
 }
 
-# make sure config directory exists
-my $config_dir="/etc/linuxmuster-client/extras/login-enabled";
-if (not -d $config_dir){
-    system("mkdir -p $config_dir");
-    # ????? set permissions
-}
+my $config_dir="";
 
 # /etc/xdg/autostart/linuxmuster-client-extra.desktop must exist to run 
 # /usr/bin/linuxmuster-client-extras-login that runs all scripts as user
@@ -51,6 +46,8 @@ system("chmod 0644 $autostart_file_target");
 
 my $help=0;
 my $info=0;
+my $type="";
+
 my $delete_old_stuff=0;
 my $off="";
 my $on="";
@@ -110,6 +107,7 @@ my %script_link_map = (
 my $testopt=GetOptions(
            "help|h" => \$help,
            "info|i" => \$info,
+           "type=s" => \$type,
            "delete-old-stuff" => \$delete_old_stuff,
            "off=s" => \$off,
            "on=s" => \$on,
@@ -119,15 +117,24 @@ my $testopt=GetOptions(
 # Prüfen, ob Optionen erkannt wurden, sonst Abbruch
 &check_options($testopt);
 
+# set config dir
+if ($type eq ""){
+    print "\n   Option --type must be set\n\n";
+    exit;
+} elsif ($type eq "login"){
+    $config_dir="/etc/linuxmuster-client/extras/login-enabled";
+} else {
+    print "\n   Unknown Type:  $type\n\n";
+    exit;
+}
 
 
 if ($help==1){
-   print("With $scriptname you can setup scripts to be run on user login on the linuxmuster Linux client.\n",
-'All linked scripts/programs in',"$config_dir",' are run in the order given by the 3-digit string at the 
-beginning of the linkname.
+   print("With $scriptname you can setup scripts to be run on user login|... on the linuxmuster Linux client.\n",
+'All linked scripts/programs are run in the order given by the 3-digit string at the beginning of the linkname.
 
 For scripts known to ',"$scriptname",' the 3-digit string is looked up automatically. 
-For you own custom scripts, you must use the option --order to submit the 3-digit string.
+For your own custom scripts, you must use the option --order to submit the 3-digit string.
 
 On user login the script /usr/bin/linuxmuster-client-extras-login is executed to run all the linked scripts.
 See the help there for debugging info.
@@ -137,6 +144,11 @@ Options:
 
   -i  / --info
     List all links in the configuration directory
+
+  --type login|...
+    Where to create the links:
+    ',$type,':   ',$config_dir,'
+    ...
 
   --off ',"$config_dir",'/123-link
     Remove the link = Do not start this script on login.
@@ -152,9 +164,21 @@ Options:
   --delete-old-stuff
     Delete all old files from a manual install. Will be deprecated.
 
+Examples: 
+ Switching a servive on/off on login:
+   linuxmuster-client-extras-setup --type login --on /usr/bin/watch-my-home
+   linuxmuster-client-extras-setup --type login --off /etc/linuxmuster-client/extras/login-enabled/080-watch-my-home
+
 ');
    print "\n";
    exit;
+}
+
+
+# make sure config directory exists
+if ($config_dir ne "" and not -d $config_dir){
+    system("mkdir -p $config_dir");
+    # ????? set permissions
 }
 
 
