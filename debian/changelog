@@ -1,3 +1,9 @@
+linuxmuster-client-extras (0.1.3-1) precise; urgency=low
+
+  * New upstream (cronjob for shutdown, cronjob for server infos)
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 26 Oct 2012 15:20:20 +0200
+
 linuxmuster-client-extras (0.1.2-1) precise-testing; urgency=low
 
   * New upstream
