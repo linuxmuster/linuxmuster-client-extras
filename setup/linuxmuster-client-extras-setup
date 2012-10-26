@@ -67,8 +67,10 @@ my @delete_old_stuff=(
     "/etc/xdg/autostart/italcRaumanpassung.desktop", 
     "/usr/bin/italc-raumanpassung.sh", 
     "/usr/bin/italc-raumanpassung.sh~", 
-#    "/usr/bin/herunterfahren.sh", 
+    "/usr/bin/herunterfahren.sh", 
+    "/usr/bin/checkshutdown.sh", 
     "/etc/xdg/autostart/DesktopIconshinzu.desktop", 
+    "/etc/xdg/autostart/postlogin-xhost-root.desktop", 
     "/usr/bin/desktop-icons-hinzu.sh", 
     "/usr/bin/desktop-icons-hinzu-88591.sh", 
     "/usr/bin/desktop-icons-hinzu-Arbeitsfl.sh", 
@@ -97,6 +99,7 @@ my %script_link_map = (
     "/usr/bin/run-vm-printer-splitter",        "060-run-vm-printer-splitter",
     "/usr/bin/run-vm-printer-spooler",         "070-run-vm-printer-spooler",
     "/usr/bin/watch-my-home",                  "080-watch-my-home", 
+    "/usr/bin/xhost-root",                  "090-xhost-root", 
 #    "/usr/bin/leoclient-admin",                "/etc/sc8",
    );
 

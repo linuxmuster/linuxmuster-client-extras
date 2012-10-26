@@ -102,7 +102,8 @@ shutdown:
 # no config file
 	@echo '   * Installing shutdown script (without cronjob entry)'
 	@install -d -m0755 -oroot -groot $(BIN)
-	@install -oroot -groot --mode=0755 shutdown/herunterfahren.sh $(BIN)
+	@install -oroot -groot --mode=0755 shutdown/xhost-root $(BIN)
+	@install -oroot -groot --mode=0755 shutdown/check-shutdown $(BIN)
 
 
 create-desktop-icons:
