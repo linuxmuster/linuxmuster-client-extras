@@ -124,10 +124,12 @@ my $testopt=GetOptions(
 &check_options($testopt);
 
 # set config dir
-if ($type eq ""){
+if ($type eq "" and $help==0){
     print "\n   Option --type must be set\n\n";
     exit;
 } elsif ($type eq "login"){
+    $config_dir="/etc/linuxmuster-client/extras/login-enabled";
+} elsif ($type eq "" and $help==1){
     $config_dir="/etc/linuxmuster-client/extras/login-enabled";
 } else {
     print "\n   Unknown Type:  $type\n\n";

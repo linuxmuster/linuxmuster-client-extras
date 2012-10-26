@@ -1,3 +1,4 @@
+# 
 # ----------------------------------------
 # Show server information from $HOME of user 
 # Please uncomment to activate!
