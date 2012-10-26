@@ -1,4 +1,6 @@
 #!/bin/bash
+# Script created by Rainer Rössler (roesslerrr-at-web.de)
+# License: Free Software (License GPLv3)
 
 #Prüfen, ob ein Benutzer angemeldet ist; wenn nein shutdown, wenn ja...
 USERCOUNT=$(who | wc -l)

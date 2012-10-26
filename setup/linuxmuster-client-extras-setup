@@ -79,6 +79,9 @@ my @delete_old_stuff=(
     "/usr/bin/ausdruck-winxp-splitter", 
     "/usr/bin/ausdruck-winxp-spooler", 
     "/usr/bin/leoclient-admin", 
+    "/usr/bin/serverinformationen-anzeigen.sh", 
+    "/etc/cron.d/serverinformationen-anzeigen", 
+    "/etc/cron.d/checkshutdown", 
    );
 
 my @old_script_warning_lines=(

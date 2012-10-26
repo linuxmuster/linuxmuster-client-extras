@@ -1,0 +1,50 @@
+#!/bin/bash
+# Script created by Rainer Rössler (roesslerrr-at-web.de)
+# License: Free Software (License GPLv3)
+
+
+# Dieses Script zeigt Servermeldungen, die im Heimatverzeichnis als
+# .majestix-quota oder .majestix-motd liegen, auf dem Desktop an.
+# Dazu muss unter /etc/cron.d die Datei serverinformationen-anzeigen
+# mit folgendem Eintrag ergänzt werden
+# */2 * * * * /usr/bin/serverinformationen-anzeigen.sh
+# damit alle 2 Minuten das script ausgeführt wird
+
+
+if [ -f /tmp/heimatverzeichnis ]
+then
+ HEIMAT=`cat /tmp/heimatverzeichnis`
+ 
+ #Quota
+ 
+ PFADQUOTA=`echo $HEIMAT/Home_auf_Server/.majestix-quota`
+ 
+ if [ -f `echo $PFADQUOTA` ]
+ then
+  MELDUNGQUOTA=`cat $PFADQUOTA`
+    
+  LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=299 --text="$MELDUNGQUOTA" &
+  
+  rm `echo $PFADQUOTA`
+  
+ else
+  
+  #MOTD
+  
+  PFADMOTD=`echo $HEIMAT/Home_auf_Server/.majestix-motd`
+  
+  if [ -f `echo $PFADMOTD` ]
+  then
+   MELDUNGMOTD=`cat $PFADMOTD`
+       
+   LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=299 --text="$MELDUNGMOTD" &
+   
+   rm `echo $PFADMOTD`
+   
+  fi
+ 
+ fi
+
+fi
+
+exit 0
