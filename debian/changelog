@@ -1,3 +1,9 @@
+linuxmuster-client-extras (0.1.4-1) precise; urgency=low
+
+  * Added setup-show-server-information script
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Tue, 13 Nov 2012 16:42:54 +0100
+
 linuxmuster-client-extras (0.1.3-2) precise; urgency=low
 
   * Dummy Package
