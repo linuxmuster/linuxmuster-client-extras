@@ -4,6 +4,7 @@
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/set-default-printer
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/setup-italc-rooms
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/create-desktop-icons
+/usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/setup-show-server-information
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/setup-virtualbox
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/run-vm-printer-splitter
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/run-vm-printer-spooler

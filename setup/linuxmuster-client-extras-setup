@@ -90,20 +90,14 @@ my @old_script_warning_lines=(
 
 my %script_link_map = (
     "/usr/bin/setup-virtualbox",               "010-setup-virtualbox",
-#old    "/usr/bin/standarddrucker-nach-raum.sh",   "020-set-default-printer", 
     "/usr/bin/set-default-printer",            "020-set-default-printer", 
-#old    "/usr/bin/italc-raumanpassung.sh",         "030-set-italc-rooms",
-    "/usr/bin/setup-italc-rooms",         "030-setup-italc-rooms",
-#    "/usr/bin/herunterfahren.sh",              "/etc/sc4",
-#old    "/usr/bin/desktop-icons-hinzu.sh",         "040-create-desktop-icons",
+    "/usr/bin/setup-italc-rooms",              "030-setup-italc-rooms",
     "/usr/bin/create-desktop-icons",           "040-create-desktop-icons",
-#old    "/usr/bin/ausdruck-winxp-splitter",        "050-vm-printer-splitter",
-#old    "/usr/bin/ausdruck-winxp-spooler",         "060-vm-printer-spooler",
+    "/usr/bin/setup-show-server-information",  "050-setup-show-server-information",
     "/usr/bin/run-vm-printer-splitter",        "060-run-vm-printer-splitter",
     "/usr/bin/run-vm-printer-spooler",         "070-run-vm-printer-spooler",
     "/usr/bin/watch-my-home",                  "080-watch-my-home", 
-    "/usr/bin/xhost-root",                  "090-xhost-root", 
-#    "/usr/bin/leoclient-admin",                "/etc/sc8",
+    "/usr/bin/xhost-root",                     "090-xhost-root", 
    );
 
 

@@ -113,6 +113,7 @@ server-infos:
 	@echo '   * Installing server information script (without cronjob entry)'
 	@install -d -m0755 -oroot -groot $(BIN)
 	@install -oroot -groot --mode=0755 server-information/show-server-information $(BIN)
+	@install -oroot -groot --mode=0755 server-information/setup-show-server-information $(BIN)
 
 
 
