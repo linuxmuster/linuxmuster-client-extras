@@ -32,6 +32,8 @@ my ($GID_name)=getgrgid($GID);
 my ($EGID_name)=getgrgid($EGID);
 
 my $script="watch-my-home-".$UID_name;
+my $scriptname="watch-my-home";
+
 my $label_feedback;
 # allow everybody to log int the logfile
 umask 000;
@@ -115,10 +117,12 @@ sub watcher {
             my $home_path=$abs_path;
             $home_path=~s/$home\///;
 
-            print "Home_Path: $home_path\n";
+            INFO "Created: $abs_path ($home_path)\n";
             if ( $home_path=~/^\..*/ ){
-                # do nothin with dotfiles
+                # do nothing with dotfiles
                 print "$abs_path is a dotfile\n";
+            } elsif ($home_path=~/^[Mm][Aa][Gg][Ii][Cc][Kk]/){
+                # do nothing
             } elsif (-l $abs_path){
               # Do something with the link
                 INFO "Link created:     $abs_path ($home_path)\n";
@@ -197,14 +201,14 @@ sub user_change{
 
 sub kill_other_scripts {    
     INFO "Killing all other scripts:";
-    my $pid_string=`pgrep -f $script`;
+    my $pid_string=`pgrep -f $scriptname`;
     my (@pids) = split("\n",$pid_string);
     foreach my $pid (@pids){
         if (not $pid==$PROCESS_ID){
             my $string=`ps -o cmd= -p $pid`;
             if ($string=~/perl/){
                 # make sure its the script
-                INFO "Killing $script with $pid";
+                INFO "Killing $scriptname with $pid";
                 system("kill $pid && echo '   ---> Killed succesfully' >> $log || echo '   ---> ERROR killing $pid' >> $log");
             } else {
                 INFO "NOT Killing $string";
