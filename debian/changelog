@@ -1,3 +1,11 @@
+linuxmuster-client-extras (0.1.5-1) precise; urgency=low
+
+  * Bugfix #49 and #50
+	- stop watch-my-home on logout
+	- watch-ma-home: Ignore MAGICK* case insensitive
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 14 Dec 2012 14:46:42 +0100
+
 linuxmuster-client-extras (0.1.4-1) precise; urgency=low
 
   * Added setup-show-server-information script
