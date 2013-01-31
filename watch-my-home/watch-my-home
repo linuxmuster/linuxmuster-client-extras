@@ -123,6 +123,8 @@ sub watcher {
                 print "$abs_path is a dotfile\n";
             } elsif ($home_path=~/^[Mm][Aa][Gg][Ii][Cc][Kk]/){
                 # do nothing
+            } elsif ($home_path eq "missfont.log"){
+                # do nothing
             } elsif (-l $abs_path){
               # Do something with the link
                 INFO "Link created:     $abs_path ($home_path)\n";
