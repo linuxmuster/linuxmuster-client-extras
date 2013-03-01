@@ -4,7 +4,15 @@
 
 cd ~
 
-RAUM=`hostname | cut -d 'p' -f 1 | tr [:upper:] [:lower:] `
+# Trenner aus Konfigurationsdatei auslesen
+TRENNERKONF=`cat /etc/linuxmuster-client/extras/set-default-printer.conf | grep ^TRENNER=`
+TRENNER=${TRENNERKONF#*TRENNER=}
+TRENNER=`echo $TRENNER | cut -d " " -f 1`
+# alt TRENNER="p"
+
+#RECHNERRAUM=`hostname | cut -d 'p' -f 1 | tr [:upper:] [:lower:] `
+RECHNERRAUM=`hostname | tr [:upper:] [:lower:] `
+RAUM=${RECHNERRAUM%%$TRENNER*}
 
 
 # Standarddrucker PDF setzen
