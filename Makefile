@@ -31,6 +31,9 @@ help:
 	@echo '   make shutdown'
 	@echo '      install shutdown script'
 	@echo ' '
+	@echo '   make server-infos'
+	@echo '      install server information script'
+	@echo ' '
 	@echo '   make create-desktop-icons'
 	@echo '      install scripts to sync desktop icons'
 	@echo ' '
@@ -102,7 +105,16 @@ shutdown:
 # no config file
 	@echo '   * Installing shutdown script (without cronjob entry)'
 	@install -d -m0755 -oroot -groot $(BIN)
-	@install -oroot -groot --mode=0755 shutdown/herunterfahren.sh $(BIN)
+	@install -oroot -groot --mode=0755 shutdown/xhost-root $(BIN)
+	@install -oroot -groot --mode=0755 shutdown/check-shutdown $(BIN)
+
+server-infos:
+# no config file
+	@echo '   * Installing server information script (without cronjob entry)'
+	@install -d -m0755 -oroot -groot $(BIN)
+	@install -oroot -groot --mode=0755 server-information/show-server-information $(BIN)
+	@install -oroot -groot --mode=0755 server-information/setup-show-server-information $(BIN)
+
 
 
 create-desktop-icons:

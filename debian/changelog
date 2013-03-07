@@ -1,3 +1,41 @@
+linuxmuster-client-extras (0.1.5-1) precise; urgency=low
+
+  * Bugfix #49 and #50
+	- stop watch-my-home on logout
+	- watch-ma-home: Ignore MAGICK* case insensitive
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 14 Dec 2012 14:46:42 +0100
+
+linuxmuster-client-extras (0.1.4-1) precise; urgency=low
+
+  * Added setup-show-server-information script
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Tue, 13 Nov 2012 16:42:54 +0100
+
+linuxmuster-client-extras (0.1.3-2) precise; urgency=low
+
+  * Dummy Package
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 26 Oct 2012 15:49:31 +0200
+
+linuxmuster-client-extras (0.1.3-1) precise; urgency=low
+
+  * New upstream (cronjob for shutdown, cronjob for server infos)
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 26 Oct 2012 15:20:20 +0200
+
+linuxmuster-client-extras (0.1.2-1) precise-testing; urgency=low
+
+  * New upstream
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 28 Sep 2012 13:10:04 +0200
+
+linuxmuster-client-extras (0.1.1-1) precise-testing; urgency=low
+
+  * Upstream fix: Message with links is ok
+
+ -- Ruediger Beck <bz@j1009p16.bszleo.de>  Thu, 27 Sep 2012 14:47:32 +0200
+
 linuxmuster-client-extras (0.1.0-1) precise-testing; urgency=low
 
   * Ne Package for precise repo
