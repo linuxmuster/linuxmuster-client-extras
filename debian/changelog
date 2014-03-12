@@ -1,4 +1,4 @@
-linuxmuster-client-extras (0.1.5-1ubuntu1) precise; urgency=low
+linuxmuster-client-extras (0.1.5-trusty1) trusty-testing; urgency=low
 
   * Created a branch release/trusty
   * Moved to trusty-testing without changes in the code
