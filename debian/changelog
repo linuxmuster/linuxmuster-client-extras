@@ -1,3 +1,10 @@
+linuxmuster-client-extras (0.1.5-1ubuntu1) precise; urgency=low
+
+  * Created a branch release/trusty
+  * Moved to trusty-testing without changes in the code
+
+ -- Frank Schiebel <frank@linuxmuster.net>  Wed, 12 Mar 2014 17:51:34 +0100
+
 linuxmuster-client-extras (0.1.5-1) precise; urgency=low
 
   * Bugfix #49 and #50
