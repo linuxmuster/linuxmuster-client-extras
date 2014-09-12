@@ -35,8 +35,24 @@ done
 
 
 # Gibt es einen lokalen USB-Drucker?
-LOKALDRUCKER=`lpstat -v | grep "/usb/" | cut -d ':' -f 1 | cut -d ' ' -f 3 `
+LOKALDRUCKER=`lpstat -v | grep "usb" | cut -d ':' -f 1 | cut -d ' ' -f 3 `
 
+if [ "`echo $LOKALDRUCKER`" == "" ]
+then
+  # wenn es keinen USB-Drucker gibt (=leer), dann nach einem lokalen Hewlett-Packard-Drucker suchen
+  if [ "`lsusb | grep Hewlett-Packard`" == "" ]
+  then
+    ~
+  else
+    # wenn es einen Hewlett-Packard-Drucker gibt,
+    # dessen USB-Port auslesen und dort den Drucker installieren
+    BUSID=`lsusb | grep Hewlett-Packard | cut -d " " -f 2`
+    DEVICEID=`lsusb | grep Hewlett-Packard | cut -d " " -f 4 | cut -d ":" -f 1`
+    hp-setup -i -x -a $BUSID:$DEVICEID
+  fi
+fi
+
+LOKALDRUCKER=`lpstat -v | grep "/usb/" | cut -d ':' -f 1 | cut -d ' ' -f 3 `
 if [ "`echo $LOKALDRUCKER`" == "" ]
 then
   cd ~
@@ -45,7 +61,6 @@ else
 fi
 
 LOKALDRUCKER=`lpstat -v | grep "usb://" | cut -d ':' -f 1 | cut -d ' ' -f 3 `
-
 if [ "`echo $LOKALDRUCKER`" == "" ]
 then
   cd ~
