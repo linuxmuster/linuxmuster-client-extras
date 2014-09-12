@@ -48,6 +48,7 @@ then
     # dessen USB-Port auslesen und dort den Drucker installieren
     BUSID=`lsusb | grep Hewlett-Packard | cut -d " " -f 2`
     DEVICEID=`lsusb | grep Hewlett-Packard | cut -d " " -f 4 | cut -d ":" -f 1`
+    sleep 5
     hp-setup -i -x -a $BUSID:$DEVICEID
   fi
 fi
