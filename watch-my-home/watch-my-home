@@ -22,6 +22,9 @@ use File::Path;
 # use log names of perl variables, i.e. $UID
 use English;
 use Log::Log4perl qw(:easy);
+# wait, before starting watch
+sleep 10;
+
 # configure logging
 my $log="/tmp/watch-my-home.log";
 
