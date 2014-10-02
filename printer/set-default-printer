@@ -4,6 +4,17 @@
 
 cd ~
 
+# bei einer schnellen Anmeldung wird der Standarddrucker nicht gesetzt
+# warten bis cupsd gestartet wird, danach noch 5 Sekunden bis er laeuft
+
+CUPSDRUNNING=`pgrep cupsd`
+while [ "`echo $CUPSDRUNNING`" = "" ]
+do
+  sleep 1
+  CUPSDRUNNING=`pgrep cupsd`
+done 
+sleep 5
+
 # Trenner aus Konfigurationsdatei auslesen
 TRENNERKONF=`cat /etc/linuxmuster-client/extras/set-default-printer.conf | grep ^TRENNER=`
 TRENNER=${TRENNERKONF#*TRENNER=}
@@ -39,17 +50,33 @@ LOKALDRUCKER=`lpstat -v | grep "usb" | cut -d ':' -f 1 | cut -d ' ' -f 3 `
 
 if [ "`echo $LOKALDRUCKER`" == "" ]
 then
-  # wenn es keinen USB-Drucker gibt (=leer), dann nach einem lokalen Hewlett-Packard-Drucker suchen
-  if [ "`lsusb | grep Hewlett-Packard`" == "" ]
+  # wenn es keinen USB-Drucker gibt (=leer), 
+  # dann nach einem lokalen Hewlett-Packard-Drucker suchen
+  # es darf aber kein Scanner (ScanJet) sein
+  if [ "`lsusb | grep Hewlett-Packard | grep -v Scan`" == "" ]
   then
-    ~
+    cd ~
   else
     # wenn es einen Hewlett-Packard-Drucker gibt,
     # dessen USB-Port auslesen und dort den Drucker installieren
-    BUSID=`lsusb | grep Hewlett-Packard | cut -d " " -f 2`
-    DEVICEID=`lsusb | grep Hewlett-Packard | cut -d " " -f 4 | cut -d ":" -f 1`
+    BUSID=`lsusb | grep Hewlett-Packard | grep -v Scan | cut -d " " -f 2`
+    BUSHP=`echo $BUSID | cut -d " " -f 1`
+    DEVICEID=`lsusb | grep Hewlett-Packard | grep -v Scan | cut -d " " -f 4 | cut -d ":" -f 1`
+    DEVICEHP=`echo $DEVICEID | cut -d " " -f 1`
+    #sleep 5
+    #echo hp-setup -i -x -a $BUSHP:$DEVICEHP > /tmp/hp-setup.tmp
+    hp-setup -i -x -a $BUSHP:$DEVICEHP &
+
+    # nach 5 Sekunden sollte der Drucker installiert sein, sonst Abbruch
     sleep 5
-    hp-setup -i -x -a $BUSID:$DEVICEID
+    PIDHPSETUP=`pgrep hp-setup `
+    #echo $PIDHPSETUP > /tmp/pid-hp-setup
+    if [ "`echo $PIDHPSETUP`" == "" ]
+    then
+      cd ~
+    else
+      kill $PIDHPSETUP
+    fi
   fi
 fi
 
