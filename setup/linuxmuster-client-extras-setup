@@ -96,6 +96,8 @@ my %script_link_map = (
     "/usr/bin/setup-show-server-information",  "050-setup-show-server-information",
     "/usr/bin/run-vm-printer-splitter",        "060-run-vm-printer-splitter",
     "/usr/bin/run-vm-printer-spooler",         "070-run-vm-printer-spooler",
+    "/usr/bin/run-vm-printer2-splitter",       "060-run-vm-printer2-splitter",
+    "/usr/bin/run-vm-printer2-spooler",        "070-run-vm-printer2-spooler",
     "/usr/bin/watch-my-home",                  "080-watch-my-home", 
     "/usr/bin/xhost-root",                     "090-xhost-root", 
    );

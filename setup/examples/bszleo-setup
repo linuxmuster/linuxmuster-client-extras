@@ -6,8 +6,8 @@
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/create-desktop-icons
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/setup-show-server-information
 /usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/setup-virtualbox
-/usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/run-vm-printer-splitter
-/usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/run-vm-printer-spooler
+/usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/run-vm-printer2-splitter
+/usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/run-vm-printer2-spooler
 #/usr/sbin/linuxmuster-client-extras-setup --type login --on /usr/bin/watch-my-home
 
 

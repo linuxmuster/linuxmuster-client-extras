@@ -1,8 +1,14 @@
+linuxmuster-client-extras (0.1.8-1) trusty; urgency=medium
+
+  * Configure leoclient2 logon scripts (printer spooler and splitter)
+
+ -- Ruediger Beck <bz@j1009p21.bszleo.de>  Thu, 11 Dec 2014 15:46:20 +0100
+
 linuxmuster-client-extras (0.1.5-1) precise; urgency=low
 
   * Bugfix #49 and #50
 	- stop watch-my-home on logout
-	- watch-ma-home: Ignore MAGICK* case insensitive
+	- watch-my-home: Ignore MAGICK* case insensitive
 
  -- Ruediger Beck <bz@j1009p16.bszleo.de>  Fri, 14 Dec 2012 14:46:42 +0100
 
