@@ -2,32 +2,36 @@
 # Script created by Rainer Rössler (roesslerrr-at-web.de)
 # License: Free Software (License GPLv3)
 
+## Kann im crontab Eintrag konfiguriert werden. Siehe /etc/cron.d/linuxmuster-client-extras.
+# export DISPLAY=:0
+export LANG=de_DE.utf8
+
 #Prüfen, ob ein Benutzer angemeldet ist; wenn nein shutdown, wenn ja...
 USERCOUNT=$(who | wc -l)
 if [ $USERCOUNT -eq 0 ]; then
  /sbin/shutdown -h now
 else
 #Meldung an User wegen shutdown mit Bestätigung oder Abbruchmöglichkeit
- LANG=de_DE.utf8 /usr/bin/zenity --question --timeout=120 --text="Der PC wird in 2 Minuten abgeschaltet. Ist das OK?" --title="PC-Abschaltung"; STATUS=$?
+ /usr/bin/zenity --question --timeout=120 --text="Der PC wird in 2 Minuten abgeschaltet. Ist das OK?" --title="PC-Abschaltung"; STATUS=$?
  if [ $STATUS -eq 1 ]; then
   exit 0
  else
-  LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 2 Minuten heruntergefahren. Bitte abspeichern." &
+  /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 2 Minuten heruntergefahren. Bitte abspeichern." &
   sleep 30
-  LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 90 Sekunden heruntergefahren. Bitte abspeichern." &
+  /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 90 Sekunden heruntergefahren. Bitte abspeichern." &
   sleep 30
-  LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 60 Sekunden heruntergefahren. Bitte abspeichern." &
+  /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 60 Sekunden heruntergefahren. Bitte abspeichern." &
   sleep 30
-  LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 30 Sekunden heruntergefahren. Bitte abspeichern." &
+  /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 30 Sekunden heruntergefahren. Bitte abspeichern." &
   sleep 10
-  LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 20 Sekunden heruntergefahren. Bitte abspeichern." &
+  /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 20 Sekunden heruntergefahren. Bitte abspeichern." &
   sleep 10
-  LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 10 Sekunden heruntergefahren. Bitte abspeichern." &
+  /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 10 Sekunden heruntergefahren. Bitte abspeichern." &
   sleep 10
-  LANG=de_DE.utf8 /usr/bin/zenity --warning --timeout=5 --text="Der Rechner wird heruntergefahren. Auf Wiedersehen." &
+  /usr/bin/zenity --warning --timeout=5 --text="Der Rechner wird heruntergefahren. Auf Wiedersehen." &
   sleep 5
   /sbin/shutdown -h now
  fi
-fi 
+fi
 
 exit 0
