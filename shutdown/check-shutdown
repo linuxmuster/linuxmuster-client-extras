@@ -1,37 +1,33 @@
 #!/bin/bash
-# Script created by Rainer Rössler (roesslerrr-at-web.de)
-# License: Free Software (License GPLv3)
+## Script created by Rainer Rössler (roesslerrr-at-web.de)
+## Modified by Robin Schneider <ypid@riseup.net>
+## License: Free Software (License GPLv3)
 
-## Kann im crontab Eintrag konfiguriert werden. Siehe /etc/cron.d/linuxmuster-client-extras.
-# export DISPLAY=:0
-export LANG=de_DE.utf8
+export LANG="de_DE.utf8"
+export PATH="/usr/bin:/sbin:/bin"
 
-#Prüfen, ob ein Benutzer angemeldet ist; wenn nein shutdown, wenn ja...
+TARGET_USER="$(users | cut --fields 1 --delimiter ' ')"
+run_in_user_context="sudo -u ${TARGET_USER}"
+
+## Prüfen, ob ein Benutzer angemeldet ist; wenn nein shutdown, wenn ja...
 USERCOUNT=$(who | wc -l)
 if [ $USERCOUNT -eq 0 ]; then
- /sbin/shutdown -h now
+    shutdown -h now
 else
-#Meldung an User wegen shutdown mit Bestätigung oder Abbruchmöglichkeit
- /usr/bin/zenity --question --timeout=120 --text="Der PC wird in 2 Minuten abgeschaltet. Ist das OK?" --title="PC-Abschaltung"; STATUS=$?
- if [ $STATUS -eq 1 ]; then
-  exit 0
- else
-  /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 2 Minuten heruntergefahren. Bitte abspeichern." &
-  sleep 30
-  /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 90 Sekunden heruntergefahren. Bitte abspeichern." &
-  sleep 30
-  /usr/bin/zenity --warning --timeout=30 --text="Der Rechner wird in 60 Sekunden heruntergefahren. Bitte abspeichern." &
-  sleep 30
-  /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 30 Sekunden heruntergefahren. Bitte abspeichern." &
-  sleep 10
-  /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 20 Sekunden heruntergefahren. Bitte abspeichern." &
-  sleep 10
-  /usr/bin/zenity --warning --timeout=10 --text="Der Rechner wird in 10 Sekunden heruntergefahren. Bitte abspeichern." &
-  sleep 10
-  /usr/bin/zenity --warning --timeout=5 --text="Der Rechner wird heruntergefahren. Auf Wiedersehen." &
-  sleep 5
-  /sbin/shutdown -h now
- fi
+    ## Frage an den Benutzer ob das Herunterfahren abgebrochen werden soll.
+    $run_in_user_context zenity --question --timeout=120 --text="Der PC wird in 2 Minuten abgeschaltet. Ist das OK?" --title="PC-Abschaltung" --ok-label="OK, bitte abschalten" --cancel-label="Nein, ich möchte noch Arbeiten!"
+    STATUS=$?
+    if [ $STATUS -eq 1 ]; then ## Nicht herunterfahren
+        exit 0
+    else
+        for seconds_until_shutdown in $(seq 120 -30 30); do
+            $run_in_user_context zenity --warning --timeout=30 --text="Der Rechner wird in $seconds_until_shutdown Sekunden heruntergefahren. Bitte abspeichern." &
+            sleep 30
+        done
+        $run_in_user_context zenity --warning --timeout=5 --text="Der Rechner wird heruntergefahren. Auf Wiedersehen." &
+        sleep 5
+        shutdown -h now
+    fi
 fi
 
 exit 0
