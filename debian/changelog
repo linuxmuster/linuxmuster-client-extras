@@ -1,3 +1,9 @@
+linuxmuster-client-extras (0.1.8-1) xenial-testing; urgency=medium
+
+  * Release for Ubuntu Xenial Xerus
+
+ -- Ruediger Beck <bz@j1009p21.bszleo.de>  Thu, 11 Dec 2014 15:46:20 +0100
+ 
 linuxmuster-client-extras (0.1.8-1) trusty; urgency=medium
 
   * Configure leoclient2 logon scripts (printer spooler and splitter)
