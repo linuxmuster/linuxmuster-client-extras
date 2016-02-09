@@ -1,8 +1,8 @@
-linuxmuster-client-extras (0.1.8-1) xenial-testing; urgency=medium
+linuxmuster-client-extras (0.1.8-xenial2) xenial-testing; urgency=medium
 
   * First testing Release for Ubuntu Xenial Xerus
 
- -- Dominik Foerderer <dominik.foerderer@windeck-gymnasium.de>  Wed, 03 Feb 2016 15:12:20 +0100
+ -- Dominik Foerderer <dominik.foerderer@windeck-gymnasium.de>  Thu, 09 Feb 2016 11:12:20 +0100
  
 linuxmuster-client-extras (0.1.8-1) trusty; urgency=medium
 
